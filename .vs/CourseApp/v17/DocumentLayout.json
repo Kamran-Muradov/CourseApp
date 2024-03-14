@@ -3,32 +3,72 @@
   "WorkspaceRootPath": "C:\\Workspace Code Academy\\CourseApp\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F6C001D7-51BD-4123-98D3-FCF480E11B49}|Repository\\Repository.csproj|c:\\workspace code academy\\courseapp\\repository\\repositories\\baserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6C001D7-51BD-4123-98D3-FCF480E11B49}|Repository\\Repository.csproj|solutionrelative:repository\\repositories\\baserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{74595FA0-1C6F-45F0-A698-DA3E48E7EF24}|Service\\Service.csproj|c:\\workspace code academy\\courseapp\\service\\helpers\\enums\\operationtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74595FA0-1C6F-45F0-A698-DA3E48E7EF24}|Service\\Service.csproj|solutionrelative:service\\helpers\\enums\\operationtype.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F6C001D7-51BD-4123-98D3-FCF480E11B49}|Repository\\Repository.csproj|c:\\workspace code academy\\courseapp\\repository\\repositories\\interfaces\\istudentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6C001D7-51BD-4123-98D3-FCF480E11B49}|Repository\\Repository.csproj|solutionrelative:repository\\repositories\\interfaces\\istudentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{74595FA0-1C6F-45F0-A698-DA3E48E7EF24}|Service\\Service.csproj|c:\\workspace code academy\\courseapp\\service\\helpers\\extensions\\consoleextension.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74595FA0-1C6F-45F0-A698-DA3E48E7EF24}|Service\\Service.csproj|solutionrelative:service\\helpers\\extensions\\consoleextension.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{74595FA0-1C6F-45F0-A698-DA3E48E7EF24}|Service\\Service.csproj|c:\\workspace code academy\\courseapp\\service\\services\\interfaces\\igroupservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{74595FA0-1C6F-45F0-A698-DA3E48E7EF24}|Service\\Service.csproj|solutionrelative:service\\services\\interfaces\\igroupservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{8B039099-4501-4B5D-BC39-A0298EB7C800}|CourseApp\\CourseApp.csproj|c:\\workspace code academy\\courseapp\\courseapp\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B039099-4501-4B5D-BC39-A0298EB7C800}|CourseApp\\CourseApp.csproj|solutionrelative:courseapp\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B039099-4501-4B5D-BC39-A0298EB7C800}|CourseApp\\CourseApp.csproj|c:\\workspace code academy\\courseapp\\courseapp\\controllers\\groupcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B039099-4501-4B5D-BC39-A0298EB7C800}|CourseApp\\CourseApp.csproj|solutionrelative:courseapp\\controllers\\groupcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8B039099-4501-4B5D-BC39-A0298EB7C800}|CourseApp\\CourseApp.csproj|c:\\workspace code academy\\courseapp\\courseapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8B039099-4501-4B5D-BC39-A0298EB7C800}|CourseApp\\CourseApp.csproj|solutionrelative:courseapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{74595FA0-1C6F-45F0-A698-DA3E48E7EF24}|Service\\Service.csproj|c:\\workspace code academy\\courseapp\\service\\services\\groupservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{74595FA0-1C6F-45F0-A698-DA3E48E7EF24}|Service\\Service.csproj|solutionrelative:service\\services\\groupservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{74595FA0-1C6F-45F0-A698-DA3E48E7EF24}|Service\\Service.csproj|c:\\workspace code academy\\courseapp\\service\\services\\interfaces\\istudentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{74595FA0-1C6F-45F0-A698-DA3E48E7EF24}|Service\\Service.csproj|solutionrelative:service\\services\\interfaces\\istudentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{74595FA0-1C6F-45F0-A698-DA3E48E7EF24}|Service\\Service.csproj|c:\\workspace code academy\\courseapp\\service\\services\\studentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74595FA0-1C6F-45F0-A698-DA3E48E7EF24}|Service\\Service.csproj|solutionrelative:service\\services\\studentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F6C001D7-51BD-4123-98D3-FCF480E11B49}|Repository\\Repository.csproj|c:\\workspace code academy\\courseapp\\repository\\repositories\\grouprepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6C001D7-51BD-4123-98D3-FCF480E11B49}|Repository\\Repository.csproj|solutionrelative:repository\\repositories\\grouprepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{74595FA0-1C6F-45F0-A698-DA3E48E7EF24}|Service\\Service.csproj|c:\\workspace code academy\\courseapp\\service\\helpers\\constants\\responsemessages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74595FA0-1C6F-45F0-A698-DA3E48E7EF24}|Service\\Service.csproj|solutionrelative:service\\helpers\\constants\\responsemessages.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74595FA0-1C6F-45F0-A698-DA3E48E7EF24}|Service\\Service.csproj|c:\\workspace code academy\\courseapp\\service\\service.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{74595FA0-1C6F-45F0-A698-DA3E48E7EF24}|Service\\Service.csproj|solutionrelative:service\\service.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6C001D7-51BD-4123-98D3-FCF480E11B49}|Repository\\Repository.csproj|c:\\workspace code academy\\courseapp\\repository\\repositories\\baserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6C001D7-51BD-4123-98D3-FCF480E11B49}|Repository\\Repository.csproj|solutionrelative:repository\\repositories\\baserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6C001D7-51BD-4123-98D3-FCF480E11B49}|Repository\\Repository.csproj|c:\\workspace code academy\\courseapp\\repository\\repositories\\studentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6C001D7-51BD-4123-98D3-FCF480E11B49}|Repository\\Repository.csproj|solutionrelative:repository\\repositories\\studentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74595FA0-1C6F-45F0-A698-DA3E48E7EF24}|Service\\Service.csproj|c:\\workspace code academy\\courseapp\\service\\services\\interfaces\\igroupservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74595FA0-1C6F-45F0-A698-DA3E48E7EF24}|Service\\Service.csproj|solutionrelative:service\\services\\interfaces\\igroupservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F6C001D7-51BD-4123-98D3-FCF480E11B49}|Repository\\Repository.csproj|c:\\workspace code academy\\courseapp\\repository\\repositories\\interfaces\\igrouprepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F6C001D7-51BD-4123-98D3-FCF480E11B49}|Repository\\Repository.csproj|solutionrelative:repository\\repositories\\interfaces\\igrouprepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{74595FA0-1C6F-45F0-A698-DA3E48E7EF24}|Service\\Service.csproj|c:\\workspace code academy\\courseapp\\service\\services\\interfaces\\istudentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{74595FA0-1C6F-45F0-A698-DA3E48E7EF24}|Service\\Service.csproj|solutionrelative:service\\services\\interfaces\\istudentservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6C001D7-51BD-4123-98D3-FCF480E11B49}|Repository\\Repository.csproj|c:\\workspace code academy\\courseapp\\repository\\repositories\\interfaces\\ibaserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6C001D7-51BD-4123-98D3-FCF480E11B49}|Repository\\Repository.csproj|solutionrelative:repository\\repositories\\interfaces\\ibaserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6C001D7-51BD-4123-98D3-FCF480E11B49}|Repository\\Repository.csproj|c:\\workspace code academy\\courseapp\\repository\\repositories\\interfaces\\istudentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6C001D7-51BD-4123-98D3-FCF480E11B49}|Repository\\Repository.csproj|solutionrelative:repository\\repositories\\interfaces\\istudentrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F6C001D7-51BD-4123-98D3-FCF480E11B49}|Repository\\Repository.csproj|c:\\workspace code academy\\courseapp\\repository\\repositories\\grouprepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F6C001D7-51BD-4123-98D3-FCF480E11B49}|Repository\\Repository.csproj|solutionrelative:repository\\repositories\\grouprepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E295A6D1-D5F4-4BFF-BD3B-326439E30BA0}|Domain\\Domain.csproj|c:\\workspace code academy\\courseapp\\domain\\models\\group.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -39,24 +79,12 @@
       "RelativeMoniker": "D:0:0:{E295A6D1-D5F4-4BFF-BD3B-326439E30BA0}|Domain\\Domain.csproj|solutionrelative:domain\\common\\baseentity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{8B039099-4501-4B5D-BC39-A0298EB7C800}|CourseApp\\CourseApp.csproj|c:\\workspace code academy\\courseapp\\courseapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{8B039099-4501-4B5D-BC39-A0298EB7C800}|CourseApp\\CourseApp.csproj|solutionrelative:courseapp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{74595FA0-1C6F-45F0-A698-DA3E48E7EF24}|Service\\Service.csproj|c:\\workspace code academy\\courseapp\\service\\service.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{74595FA0-1C6F-45F0-A698-DA3E48E7EF24}|Service\\Service.csproj|solutionrelative:service\\service.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{74595FA0-1C6F-45F0-A698-DA3E48E7EF24}|Service\\Service.csproj|c:\\workspace code academy\\courseapp\\service\\helpers\\exceptions\\notfoundexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{74595FA0-1C6F-45F0-A698-DA3E48E7EF24}|Service\\Service.csproj|solutionrelative:service\\helpers\\exceptions\\notfoundexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F6C001D7-51BD-4123-98D3-FCF480E11B49}|Repository\\Repository.csproj|c:\\workspace code academy\\courseapp\\repository\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{F6C001D7-51BD-4123-98D3-FCF480E11B49}|Repository\\Repository.csproj|solutionrelative:repository\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F6C001D7-51BD-4123-98D3-FCF480E11B49}|Repository\\Repository.csproj|c:\\workspace code academy\\courseapp\\repository\\repositories\\interfaces\\ibaserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F6C001D7-51BD-4123-98D3-FCF480E11B49}|Repository\\Repository.csproj|solutionrelative:repository\\repositories\\interfaces\\ibaserepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{E295A6D1-D5F4-4BFF-BD3B-326439E30BA0}|Domain\\Domain.csproj|c:\\workspace code academy\\courseapp\\domain\\models\\student.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -70,23 +98,128 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 0,
+              "Title": "OperationType.cs",
+              "DocumentMoniker": "C:\\Workspace Code Academy\\CourseApp\\Service\\Helpers\\Enums\\OperationType.cs",
+              "RelativeDocumentMoniker": "Service\\Helpers\\Enums\\OperationType.cs",
+              "ToolTip": "C:\\Workspace Code Academy\\CourseApp\\Service\\Helpers\\Enums\\OperationType.cs",
+              "RelativeToolTip": "Service\\Helpers\\Enums\\OperationType.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAzAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-14T19:13:00.832Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ConsoleExtension.cs",
+              "DocumentMoniker": "C:\\Workspace Code Academy\\CourseApp\\Service\\Helpers\\Extensions\\ConsoleExtension.cs",
+              "RelativeDocumentMoniker": "Service\\Helpers\\Extensions\\ConsoleExtension.cs",
+              "ToolTip": "C:\\Workspace Code Academy\\CourseApp\\Service\\Helpers\\Extensions\\ConsoleExtension.cs",
+              "RelativeToolTip": "Service\\Helpers\\Extensions\\ConsoleExtension.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-14T19:12:43.171Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "StudentController.cs",
+              "DocumentMoniker": "C:\\Workspace Code Academy\\CourseApp\\CourseApp\\Controllers\\StudentController.cs",
+              "RelativeDocumentMoniker": "CourseApp\\Controllers\\StudentController.cs",
+              "ToolTip": "C:\\Workspace Code Academy\\CourseApp\\CourseApp\\Controllers\\StudentController.cs",
+              "RelativeToolTip": "CourseApp\\Controllers\\StudentController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-14T19:06:06.201Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "GroupController.cs",
+              "DocumentMoniker": "C:\\Workspace Code Academy\\CourseApp\\CourseApp\\Controllers\\GroupController.cs",
+              "RelativeDocumentMoniker": "CourseApp\\Controllers\\GroupController.cs",
+              "ToolTip": "C:\\Workspace Code Academy\\CourseApp\\CourseApp\\Controllers\\GroupController.cs",
+              "RelativeToolTip": "CourseApp\\Controllers\\GroupController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-14T19:05:51.033Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ResponseMessages.cs",
+              "DocumentMoniker": "C:\\Workspace Code Academy\\CourseApp\\Service\\Helpers\\Constants\\ResponseMessages.cs",
+              "RelativeDocumentMoniker": "Service\\Helpers\\Constants\\ResponseMessages.cs",
+              "ToolTip": "C:\\Workspace Code Academy\\CourseApp\\Service\\Helpers\\Constants\\ResponseMessages.cs",
+              "RelativeToolTip": "Service\\Helpers\\Constants\\ResponseMessages.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-14T17:55:05.845Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "StudentService.cs",
+              "DocumentMoniker": "C:\\Workspace Code Academy\\CourseApp\\Service\\Services\\StudentService.cs",
+              "RelativeDocumentMoniker": "Service\\Services\\StudentService.cs",
+              "ToolTip": "C:\\Workspace Code Academy\\CourseApp\\Service\\Services\\StudentService.cs",
+              "RelativeToolTip": "Service\\Services\\StudentService.cs",
+              "ViewState": "AQIAAD4AAAAAAAAAAAAAAEoAAABYAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-14T13:37:17.56Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "GroupService.cs",
+              "DocumentMoniker": "C:\\Workspace Code Academy\\CourseApp\\Service\\Services\\GroupService.cs",
+              "RelativeDocumentMoniker": "Service\\Services\\GroupService.cs",
+              "ToolTip": "C:\\Workspace Code Academy\\CourseApp\\Service\\Services\\GroupService.cs",
+              "RelativeToolTip": "Service\\Services\\GroupService.cs",
+              "ViewState": "AQIAADoAAAAAAAAAAAAAABgAAAAqAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-14T11:21:47.688Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "StudentRepository.cs",
+              "DocumentMoniker": "C:\\Workspace Code Academy\\CourseApp\\Repository\\Repositories\\StudentRepository.cs",
+              "RelativeDocumentMoniker": "Repository\\Repositories\\StudentRepository.cs",
+              "ToolTip": "C:\\Workspace Code Academy\\CourseApp\\Repository\\Repositories\\StudentRepository.cs",
+              "RelativeToolTip": "Repository\\Repositories\\StudentRepository.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAA0AAAA5AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-14T13:26:57.712Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
               "Title": "IStudentService.cs",
               "DocumentMoniker": "C:\\Workspace Code Academy\\CourseApp\\Service\\Services\\Interfaces\\IStudentService.cs",
               "RelativeDocumentMoniker": "Service\\Services\\Interfaces\\IStudentService.cs",
               "ToolTip": "C:\\Workspace Code Academy\\CourseApp\\Service\\Services\\Interfaces\\IStudentService.cs",
               "RelativeToolTip": "Service\\Services\\Interfaces\\IStudentService.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAdAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-14T13:06:11.105Z"
+              "WhenOpened": "2024-03-14T13:06:11.105Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 8,
               "Title": "Service.csproj",
               "DocumentMoniker": "C:\\Workspace Code Academy\\CourseApp\\Service\\Service.csproj",
               "RelativeDocumentMoniker": "Service\\Service.csproj",
@@ -94,11 +227,12 @@
               "RelativeToolTip": "Service\\Service.csproj",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-03-14T11:02:19.6Z"
+              "WhenOpened": "2024-03-14T11:02:19.6Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 19,
               "Title": "NotFoundException.cs",
               "DocumentMoniker": "C:\\Workspace Code Academy\\CourseApp\\Service\\Helpers\\Exceptions\\NotFoundException.cs",
               "RelativeDocumentMoniker": "Service\\Helpers\\Exceptions\\NotFoundException.cs",
@@ -110,46 +244,32 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "GroupService.cs",
-              "DocumentMoniker": "C:\\Workspace Code Academy\\CourseApp\\Service\\Services\\GroupService.cs",
-              "RelativeDocumentMoniker": "Service\\Services\\GroupService.cs",
-              "ToolTip": "C:\\Workspace Code Academy\\CourseApp\\Service\\Services\\GroupService.cs",
-              "RelativeToolTip": "Service\\Services\\GroupService.cs",
-              "ViewState": "AQIAAEMAAAAAAAAAAAAxwEoAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-14T11:21:47.688Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 11,
               "Title": "IGroupService.cs",
               "DocumentMoniker": "C:\\Workspace Code Academy\\CourseApp\\Service\\Services\\Interfaces\\IGroupService.cs",
               "RelativeDocumentMoniker": "Service\\Services\\Interfaces\\IGroupService.cs",
               "ToolTip": "C:\\Workspace Code Academy\\CourseApp\\Service\\Services\\Interfaces\\IGroupService.cs",
               "RelativeToolTip": "Service\\Services\\Interfaces\\IGroupService.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAoAAAAfAAAA",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAAA0AAAA0AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-14T11:02:51.046Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 15,
               "Title": "IStudentRepository.cs",
               "DocumentMoniker": "C:\\Workspace Code Academy\\CourseApp\\Repository\\Repositories\\Interfaces\\IStudentRepository.cs",
               "RelativeDocumentMoniker": "Repository\\Repositories\\Interfaces\\IStudentRepository.cs",
               "ToolTip": "C:\\Workspace Code Academy\\CourseApp\\Repository\\Repositories\\Interfaces\\IStudentRepository.cs",
               "RelativeToolTip": "Repository\\Repositories\\Interfaces\\IStudentRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAzAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAHAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-14T10:33:59.825Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-03-14T10:33:59.825Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 16,
               "Title": "GroupRepository.cs",
               "DocumentMoniker": "C:\\Workspace Code Academy\\CourseApp\\Repository\\Repositories\\GroupRepository.cs",
               "RelativeDocumentMoniker": "Repository\\Repositories\\GroupRepository.cs",
@@ -161,7 +281,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 12,
               "Title": "IGroupRepository.cs",
               "DocumentMoniker": "C:\\Workspace Code Academy\\CourseApp\\Repository\\Repositories\\Interfaces\\IGroupRepository.cs",
               "RelativeDocumentMoniker": "Repository\\Repositories\\Interfaces\\IGroupRepository.cs",
@@ -169,36 +289,37 @@
               "RelativeToolTip": "Repository\\Repositories\\Interfaces\\IGroupRepository.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-14T10:24:08.128Z"
+              "WhenOpened": "2024-03-14T10:24:08.128Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 9,
               "Title": "BaseRepository.cs",
               "DocumentMoniker": "C:\\Workspace Code Academy\\CourseApp\\Repository\\Repositories\\BaseRepository.cs",
               "RelativeDocumentMoniker": "Repository\\Repositories\\BaseRepository.cs",
               "ToolTip": "C:\\Workspace Code Academy\\CourseApp\\Repository\\Repositories\\BaseRepository.cs",
               "RelativeToolTip": "Repository\\Repositories\\BaseRepository.cs",
-              "ViewState": "AQIAAAgAAAAAAAAAAAAQwBEAAAAiAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-14T10:21:51.305Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "IBaseRepository.cs",
               "DocumentMoniker": "C:\\Workspace Code Academy\\CourseApp\\Repository\\Repositories\\Interfaces\\IBaseRepository.cs",
               "RelativeDocumentMoniker": "Repository\\Repositories\\Interfaces\\IBaseRepository.cs",
               "ToolTip": "C:\\Workspace Code Academy\\CourseApp\\Repository\\Repositories\\Interfaces\\IBaseRepository.cs",
               "RelativeToolTip": "Repository\\Repositories\\Interfaces\\IBaseRepository.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAIAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAARAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-03-14T10:16:54.611Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 20,
               "Title": "AppDbContext.cs",
               "DocumentMoniker": "C:\\Workspace Code Academy\\CourseApp\\Repository\\Data\\AppDbContext.cs",
               "RelativeDocumentMoniker": "Repository\\Data\\AppDbContext.cs",
@@ -210,7 +331,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 21,
               "Title": "Student.cs",
               "DocumentMoniker": "C:\\Workspace Code Academy\\CourseApp\\Domain\\Models\\Student.cs",
               "RelativeDocumentMoniker": "Domain\\Models\\Student.cs",
@@ -222,7 +343,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 18,
               "Title": "BaseEntity.cs",
               "DocumentMoniker": "C:\\Workspace Code Academy\\CourseApp\\Domain\\Common\\BaseEntity.cs",
               "RelativeDocumentMoniker": "Domain\\Common\\BaseEntity.cs",
@@ -234,7 +355,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 17,
               "Title": "Group.cs",
               "DocumentMoniker": "C:\\Workspace Code Academy\\CourseApp\\Domain\\Models\\Group.cs",
               "RelativeDocumentMoniker": "Domain\\Models\\Group.cs",
@@ -246,15 +367,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Workspace Code Academy\\CourseApp\\CourseApp\\Program.cs",
               "RelativeDocumentMoniker": "CourseApp\\Program.cs",
               "ToolTip": "C:\\Workspace Code Academy\\CourseApp\\CourseApp\\Program.cs",
               "RelativeToolTip": "CourseApp\\Program.cs",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAAACIAAAABAAAA",
+              "ViewState": "AQIAABQAAAAAAAAAAAAAABsAAAADAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-14T10:05:39.361Z"
+              "WhenOpened": "2024-03-14T10:05:39.361Z",
+              "EditorCaption": ""
             }
           ]
         }

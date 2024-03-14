@@ -13,8 +13,10 @@ namespace Repository.Repositories
 
         public void Update(T entity)
         {
-            var datas = AppDbContext<T>.datas;
+            List<T> datas = AppDbContext<T>.datas;
+
             int index = datas.IndexOf(datas.FirstOrDefault(m => m.Id == entity.Id));
+
             datas[index] = entity;
         }
 

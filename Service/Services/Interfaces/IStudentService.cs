@@ -9,5 +9,8 @@ namespace Service.Services.Interfaces
         void Delete(int? id);
         List<Student> GetAll();
         Student GetById(int? id);
+        List<Student> GetAllByAge(int? age);
+        List<Student> GetAllByGroupId(int? groupId);
+        List<Student> SearchByNameOrSurname(string searchText);
     }
 }

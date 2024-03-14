@@ -1,6 +1,7 @@
 ﻿using Domain.Models;
 using Repository.Repositories;
 using Repository.Repositories.Interfaces;
+using Service.Helpers.Constants;
 using Service.Helpers.Exceptions;
 using Service.Services.Interfaces;
 
@@ -15,6 +16,7 @@ namespace Service.Services
         {
             _groupRepository = new GroupRepository();
         }
+
         public void Create(Group data)
         {
             ArgumentNullException.ThrowIfNull(data);
@@ -34,9 +36,7 @@ namespace Service.Services
         {
             ArgumentNullException.ThrowIfNull(id);
 
-            Group group = _groupRepository.GetById((int)id);
-
-            if (group is null) throw new NotFoundException("Data notfound");
+            Group group = _groupRepository.GetById((int)id) ?? throw new NotFoundException(ResponseMessages.DataNotFound);
 
             _groupRepository.Delete(group);
         }
@@ -53,13 +53,6 @@ namespace Service.Services
             return _groupRepository.GetById((int)id);
         }
 
-        public List<Group> SearchByName(string searchText)
-        {
-            ArgumentNullException.ThrowIfNull(searchText);
-
-            return _groupRepository.GetAllWithExpression(m => m.Name.Contains(searchText));
-        }
-
         public List<Group> GetAllByTeacher(string teacher)
         {
             ArgumentNullException.ThrowIfNull(teacher);
@@ -73,5 +66,13 @@ namespace Service.Services
 
             return _groupRepository.GetAllByRoom(room);
         }
+
+        public List<Group> SearchByName(string searchText)
+        {
+            ArgumentNullException.ThrowIfNull(searchText);
+
+            return _groupRepository.GetAllWithExpression(m => m.Name.Trim().ToLower().Contains(searchText));
+        }
+
     }
 }
