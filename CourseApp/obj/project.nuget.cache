@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "32WTSRy2KPXCPINNnAZyCRXDpxA/o5Goa3Mh38jplXs1E362ANC0ZmV8vLSXHH5ygIJwfiYqnF+xd8kfNpMAQw==",
+  "success": true,
+  "projectFilePath": "C:\\Workspace Code Academy\\CourseApp\\CourseApp\\CourseApp.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Legion\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.28\\microsoft.windowsdesktop.app.ref.6.0.28.nupkg.sha512",
+    "C:\\Users\\Legion\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.28\\microsoft.netcore.app.ref.6.0.28.nupkg.sha512",
+    "C:\\Users\\Legion\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.28\\microsoft.aspnetcore.app.ref.6.0.28.nupkg.sha512",
+    "C:\\Users\\Legion\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\6.0.28\\microsoft.netcore.app.host.win-x64.6.0.28.nupkg.sha512"
+  ],
+  "logs": []
+}
