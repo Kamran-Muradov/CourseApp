@@ -13,14 +13,16 @@ namespace Repository.Repositories
 
         public void Update(T entity)
         {
-            AppDbContext<T>.datas[entity.Id] = entity;
+            var datas = AppDbContext<T>.datas;
+            int index = datas.IndexOf(datas.FirstOrDefault(m => m.Id == entity.Id));
+            datas[index] = entity;
         }
 
         public void Delete(T entity)
         {
             AppDbContext<T>.datas.Remove(entity);
         }
-        
+
         public List<T> GetAll()
         {
             return AppDbContext<T>.datas.ToList();
