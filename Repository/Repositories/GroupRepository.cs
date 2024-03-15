@@ -15,7 +15,5 @@ namespace Repository.Repositories
         {
             return AppDbContext<Group>.datas.Where(m => m.Room == room).ToList();
         }
-
-        
     }
 }

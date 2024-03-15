@@ -57,12 +57,34 @@ Operation: string operationStr = Console.ReadLine();
                 break;
 
             case (int)OperationType.UpdateGroup:
+                groupController.GetAll();
                 groupController.Update();
+                break;
+
+            case (int)OperationType.DeleteGroup:
+                groupController.GetAll();
+                groupController.Delete();
                 break;
 
             case (int)OperationType.GetAllGroups:
                 groupController.GetAll();
                 break;
+
+            case (int)OperationType.GetAllGroupsByTeacher:
+                groupController.GetAllByTeacher();
+                break;
+            case (int)OperationType.GetAllGroupsByRoom:
+                groupController.GetAllByRoom();
+                break;
+
+            case (int)OperationType.GetGroupById:
+                groupController.GetById();
+                break;
+
+            case (int)OperationType.SearchGroupsByName:
+                groupController.SearchByName();
+                break;
+
             default:
                 ConsoleColor.Red.WriteConsole("Operation is wrong, please choose again");
                 goto Operation;
@@ -83,5 +105,4 @@ void ShowMenu()
         "8. Search groups by name");
 }
 
-ShowMenu();
 

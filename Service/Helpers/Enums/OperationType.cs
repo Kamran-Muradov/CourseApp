@@ -7,7 +7,7 @@
         UpdateGroup, 
         DeleteGroup,
         GetAllGroups,
-        GetAllGroupsByTeacher, 
+        GetAllGroupsByTeacher,
         GetAllGroupsByRoom, 
         GetGroupById,
         SearchGroupsByName,

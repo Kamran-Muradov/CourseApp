@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using System;
 
 namespace Service.Services.Interfaces
 {
@@ -8,9 +9,10 @@ namespace Service.Services.Interfaces
         void Update(Group data);
         void Delete(int? id);
         List<Group> GetAll();
+        List<Group> GetAllWithExpression(Func<Group, bool> predicate);
         Group GetById(int? id);
-        List<Group> GetAllByTeacher(string teacher);
-        List<Group> GetAllByRoom(string room);
-        List<Group> SearchByName(string searchText);
+        //List<Group> GetAllByTeacher(string teacher);
+        //List<Group> GetAllByRoom(string room);
+        //List<Group> SearchByName(string searchText);
     }
 }
