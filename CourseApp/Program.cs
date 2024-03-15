@@ -1,6 +1,9 @@
 ﻿
+using CourseApp.Controllers;
 using Domain.Models;
 using Repository.Data;
+using Service.Helpers.Enums;
+using Service.Helpers.Extensions;
 using Service.Services;
 
 //AppDbContext<Group>.datas = new List<Group> {
@@ -33,4 +36,52 @@ using Service.Services;
 //{
 //    Console.WriteLine(item.Id + " " + item.Name);
 //}
+
+GroupController groupController = new GroupController();
+
+while (true)
+{
+    ShowMenu();
+Operation: string operationStr = Console.ReadLine();
+
+    int operation;
+
+    bool isCorrectOperationFormat = int.TryParse(operationStr, out operation);
+
+    if (isCorrectOperationFormat)
+    {
+        switch (operation)
+        {
+            case (int)OperationType.CreateGroup:
+                groupController.Create();
+                break;
+
+            case (int)OperationType.UpdateGroup:
+                groupController.Update();
+                break;
+
+            case (int)OperationType.GetAllGroups:
+                groupController.GetAll();
+                break;
+            default:
+                ConsoleColor.Red.WriteConsole("Operation is wrong, please choose again");
+                goto Operation;
+        }
+    }
+}
+void ShowMenu()
+{
+    ConsoleColor.Cyan.WriteConsole("Select one operation:\n" +
+        "\n" +
+        "1. Create group\n" +
+        "2. Update group\n" +
+        "3. Delete group\n" +
+        "4. Show all groups\n" +
+        "5. Show all groups by teacher\n" +
+        "6. Show all groups by room\n" +
+        "7. Show group by id\n" +
+        "8. Search groups by name");
+}
+
+ShowMenu();
 

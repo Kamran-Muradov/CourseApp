@@ -2,6 +2,22 @@
 {
     public enum OperationType
     {
-        CreateGroup=1, UpdateGroup=2, DeleteGroup=3
+        Exit,
+        CreateGroup,
+        UpdateGroup, 
+        DeleteGroup,
+        GetAllGroups,
+        GetAllGroupsByTeacher, 
+        GetAllGroupsByRoom, 
+        GetGroupById,
+        SearchGroupsByName,
+        CreateStudent, 
+        UpdateStudent,
+        DeleteStudent,
+        GetAllStudents, 
+        GetAllStudentsByAge, 
+        GetAllStudentsByGroupId, 
+        GetStudentById,
+        SearchStudentsByNameOrSurname
     }
 }

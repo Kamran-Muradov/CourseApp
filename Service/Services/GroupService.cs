@@ -29,6 +29,11 @@ namespace Service.Services
         {
             ArgumentNullException.ThrowIfNull(data);
 
+            if (_groupRepository.GetAll().Any(m => m.Id == data.Id))
+            {
+                throw new NotFoundException(ResponseMessages.DataNotFound);
+            }
+
             _groupRepository.Update(data);
         }
 
