@@ -28,7 +28,9 @@ namespace Service.Services
         {
             ArgumentNullException.ThrowIfNull(data);
 
-            _studentRepository.Update(data);
+            Student student = _studentRepository.GetById(data.Id) ?? throw new NotFoundException(ResponseMessages.DataNotFound);
+
+            _studentRepository.Update(student);
         }
 
         public void Delete(int? id)

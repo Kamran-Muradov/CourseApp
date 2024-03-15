@@ -1,5 +1,6 @@
 ﻿using Domain.Models;
 using Service.Helpers.Constants;
+using Service.Helpers.Exceptions;
 using Service.Helpers.Extensions;
 using Service.Services;
 using Service.Services.Interfaces;
@@ -9,40 +10,42 @@ namespace CourseApp.Controllers
     public class GroupController
     {
         private readonly IGroupService _groupService;
+        private readonly IStudentService _studentService;
 
         public GroupController()
         {
             _groupService = new GroupService();
+            _studentService = new StudentService();
         }
 
         public void Create()
         {
             ConsoleColor.Cyan.WriteConsole("Enter name:");
-        Name: string name = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(name))
+        Name: string name = Console.ReadLine().Trim().ToLower();
+
+            if (string.IsNullOrEmpty(name))
             {
                 ConsoleColor.Red.WriteConsole("Input can't be empty");
                 goto Name;
             }
 
             ConsoleColor.Cyan.WriteConsole("Enter teacher name of this group:");
-        Teacher: string teacher = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(teacher))
+        Teacher: string teacher = Console.ReadLine().Trim().ToLower();
+            if (string.IsNullOrEmpty(teacher))
             {
                 ConsoleColor.Red.WriteConsole("Input can't be empty");
                 goto Teacher;
             }
 
             ConsoleColor.Cyan.WriteConsole("Enter room name of this group:");
-        Room: string room = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(room))
+        Room: string room = Console.ReadLine().Trim().ToLower();
+            if (string.IsNullOrEmpty(room))
             {
                 ConsoleColor.Red.WriteConsole("Input can't be empty");
                 goto Room;
             }
             try
             {
-
                 _groupService.Create(new Group { Name = name, Teacher = teacher, Room = room });
 
                 ConsoleColor.Green.WriteConsole("Data successfully added");
@@ -58,33 +61,34 @@ namespace CourseApp.Controllers
         {
             ConsoleColor.Cyan.WriteConsole("Enter id of the group you want to update:");
         Id: string idStr = Console.ReadLine();
-            int id;
-            bool isCorrectIdFormat = int.TryParse(idStr, out id);
 
-            if (id < 0)
+            if (string.IsNullOrWhiteSpace(idStr))
             {
-                ConsoleColor.Red.WriteConsole("Id cannot be negative. Please try again:");
+                ConsoleColor.Red.WriteConsole("Input can't be empty");
                 goto Id;
             }
 
+            int id;
+
+            bool isCorrectIdFormat = int.TryParse(idStr, out id);
+
             if (isCorrectIdFormat)
             {
+                if (id < 1)
+                {
+                    ConsoleColor.Red.WriteConsole("Id cannot be less than 1. Please try again:");
+                    goto Id;
+                }
                 try
                 {
                     Group updatedGroup = _groupService.GetById(id);
-
-                    if (updatedGroup is null)
-                    {
-                        ConsoleColor.Red.WriteConsole("There is no group with specified id. Please try again:");
-                        goto Id;
-                    }
 
                     ConsoleColor.Cyan.WriteConsole("Enter name (Press Enter if you don't want to change):");
                     string name = Console.ReadLine();
 
                     if (!string.IsNullOrWhiteSpace(name))
                     {
-                        updatedGroup.Name = name;
+                        updatedGroup.Name = name.Trim().ToLower();
                     }
 
                     ConsoleColor.Cyan.WriteConsole("Enter teacher name of this group (Press Enter if you don't want to change):");
@@ -92,25 +96,29 @@ namespace CourseApp.Controllers
 
                     if (!string.IsNullOrWhiteSpace(teacher))
                     {
-                        updatedGroup.Teacher = teacher;
+                        updatedGroup.Teacher = teacher.Trim().ToLower();
                     }
 
-                    ConsoleColor.Cyan.WriteConsole("Enter room name of this group: ((Press Enter if you don't want to change)");
+                    ConsoleColor.Cyan.WriteConsole("Enter room name of this group (Press Enter if you don't want to change):");
                     string room = Console.ReadLine();
 
                     if (!string.IsNullOrWhiteSpace(room))
                     {
-                        updatedGroup.Room = room;
+                        updatedGroup.Room = room.Trim().ToLower();
                     }
 
                     _groupService.Update(updatedGroup);
 
                     ConsoleColor.Green.WriteConsole("Data successfully updated");
                 }
+                catch (NotFoundException ex)
+                {
+                    ConsoleColor.Red.WriteConsole(ex.Message);
+                    return;
+                }
                 catch (Exception ex)
                 {
                     ConsoleColor.Red.WriteConsole(ex.Message);
-                    goto Id;
                 }
             }
             else
@@ -124,12 +132,19 @@ namespace CourseApp.Controllers
         {
             ConsoleColor.Cyan.WriteConsole("Enter id of the group you want to delete:");
         Id: string idStr = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(idStr))
+            {
+                ConsoleColor.Red.WriteConsole("Input can't be empty");
+                goto Id;
+            }
+
             int id;
             bool isCorrectIdFormat = int.TryParse(idStr, out id);
 
-            if (id < 0)
+            if (id < 1)
             {
-                ConsoleColor.Red.WriteConsole("Id cannot be negative. Please try again:");
+                ConsoleColor.Red.WriteConsole("Id cannot be less than 1. Please try again:");
                 goto Id;
             }
 
@@ -152,7 +167,7 @@ namespace CourseApp.Controllers
                     catch (Exception ex)
                     {
                         ConsoleColor.Red.WriteConsole(ex.Message);
-                        goto Id;
+                        return;
                     }
                 }
                 else
@@ -174,7 +189,8 @@ namespace CourseApp.Controllers
 
             if (response.Count == 0)
             {
-                ConsoleColor.Red.WriteConsole("There is not any groups to show. Please create one");
+                ConsoleColor.Red.WriteConsole("There is not any group. Please create one");
+                return;
             }
 
             foreach (var item in response)
@@ -195,8 +211,8 @@ namespace CourseApp.Controllers
 
                 if (response.Count == 0)
                 {
-                    ConsoleColor.Red.WriteConsole("No groups found for this teacher. Please try again:");
-                    goto Teacher;
+                    ConsoleColor.Red.WriteConsole(ResponseMessages.DataNotFound);
+                    return;
                 }
 
                 foreach (var item in response)
@@ -212,7 +228,7 @@ namespace CourseApp.Controllers
 
         public void GetAllByRoom()
         {
-        Room: Console.WriteLine("Enter room name:");
+            Console.WriteLine("Enter room name:");
 
             string room = Console.ReadLine().Trim().ToLower();
 
@@ -222,8 +238,8 @@ namespace CourseApp.Controllers
 
                 if (response.Count == 0)
                 {
-                    ConsoleColor.Red.WriteConsole("No groups found for this teacher. Please try again:");
-                    goto Room;
+                    ConsoleColor.Red.WriteConsole(ResponseMessages.DataNotFound);
+                    return;
                 }
 
                 foreach (var item in response)
@@ -241,27 +257,40 @@ namespace CourseApp.Controllers
         {
             ConsoleColor.Cyan.WriteConsole("Enter id of the group:");
         Id: string idStr = Console.ReadLine();
-            int id;
-            bool isCorrectIdFormat = int.TryParse(idStr, out id);
 
-            if (id < 0)
+            if (string.IsNullOrWhiteSpace(idStr))
             {
-                ConsoleColor.Red.WriteConsole("Id cannot be negative. Please try again:");
+                ConsoleColor.Red.WriteConsole("Input can't be empty");
                 goto Id;
             }
 
+            int id;
+            bool isCorrectIdFormat = int.TryParse(idStr, out id);
+
             if (isCorrectIdFormat)
             {
-                var response = _groupService.GetById(id);
-
-                if (response is null)
+                if (id < 1)
                 {
-                    ConsoleColor.Red.WriteConsole("There is no group with specified id. Please try again");
+                    ConsoleColor.Red.WriteConsole("Id cannot be less than 1. Please try again:");
                     goto Id;
                 }
 
-                ConsoleColor.Yellow.WriteConsole($"Id: {response.Id} Name: {response.Name} Teacher: {response.Teacher} Room: {response.Room}");
+                try
+                {
+                    var response = _groupService.GetById(id);
 
+                    ConsoleColor.Yellow.WriteConsole($"Id: {response.Id} Name: {response.Name} Teacher: {response.Teacher} Room: {response.Room}");
+                }
+                catch (Exception ex)
+                {
+                    ConsoleColor.Red.WriteConsole(ex.Message);
+                    return;
+                }
+            }
+            else
+            {
+                ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidIdFormat + ". Please try again:");
+                goto Id;
             }
         }
 
@@ -269,14 +298,14 @@ namespace CourseApp.Controllers
         {
             ConsoleColor.Cyan.WriteConsole("Enter search text:");
 
-        SearchText: string searchText = Console.ReadLine().Trim().ToLower();
+            string searchText = Console.ReadLine().Trim().ToLower();
 
             var response = _groupService.GetAllWithExpression(m => m.Name.Trim().ToLower().Contains(searchText));
 
             if (response.Count == 0)
             {
                 ConsoleColor.Red.WriteConsole(ResponseMessages.DataNotFound);
-                goto SearchText;
+                return;
             }
 
             foreach (var item in response)
