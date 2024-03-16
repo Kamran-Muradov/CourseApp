@@ -11,8 +11,5 @@ namespace Service.Services.Interfaces
         List<Group> GetAll();
         List<Group> GetAllWithExpression(Func<Group, bool> predicate);
         Group GetById(int? id);
-        //List<Group> GetAllByTeacher(string teacher);
-        //List<Group> GetAllByRoom(string room);
-        //List<Group> SearchByName(string searchText);
     }
 }

@@ -48,39 +48,16 @@ namespace Service.Services
             return _groupRepository.GetAll();
         }
 
+        public List<Group> GetAllWithExpression(Func<Group, bool> predicate)
+        {
+            return _groupRepository.GetAllWithExpression(predicate).ToList();
+        }
+
         public Group GetById(int? id)
         {
             ArgumentNullException.ThrowIfNull(id);
 
             return _groupRepository.GetById((int)id) ?? throw new NotFoundException(ResponseMessages.DataNotFound);
-        }
-
-
-        //public List<Group> GetAllByTeacher(string teacher)
-        //{
-        //    ArgumentNullException.ThrowIfNull(teacher);
-
-        //    return _groupRepository.GetAllByTeacher(teacher);
-        //}
-
-        //public List<Group> GetAllByRoom(string room)
-        //{
-        //    ArgumentNullException.ThrowIfNull(room);
-
-        //    return _groupRepository.GetAllWithExpression(room);
-
-        //}
-
-        //public List<Group> SearchByName(string searchText)
-        //{
-        //    ArgumentNullException.ThrowIfNull(searchText);
-
-        //    return _groupRepository.GetAllWithExpression(m => m.Name.Trim().ToLower().Contains(searchText));
-        //}
-
-        public List<Group> GetAllWithExpression(Func<Group, bool> predicate)
-        {
-            return _groupRepository.GetAllWithExpression(predicate).ToList();
         }
     }
 }
