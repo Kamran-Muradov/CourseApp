@@ -35,7 +35,7 @@ namespace CourseApp.Controllers
                 goto Name;
             }
 
-            if (!Regex.IsMatch(name, "^[a-zA-Z](?:[a-zA-Z]*[a-zA-Z])?$"))
+            if (!Regex.IsMatch(name, @"^\p{L}{1,20}$"))
             {
                 ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidNameFormat);
                 goto Name;
@@ -50,7 +50,7 @@ namespace CourseApp.Controllers
                 goto Surname;
             }
 
-            if (!Regex.IsMatch(surname, "^[a-zA-Z](?:[a-zA-Z]*[a-zA-Z])?$"))
+            if (!Regex.IsMatch(surname, @"^\p{L}{1,20}$"))
             {
                 ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidSurnameFormat);
                 goto Surname;
@@ -67,31 +67,38 @@ namespace CourseApp.Controllers
 
             int age;
 
-            bool isCorrectAgeFormat = int.TryParse(ageStr, out age);
-
-            if (isCorrectAgeFormat)
+            if (!int.TryParse(ageStr, out age))
             {
-                if (age < 0)
+                ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidAgeFormat + ". Please try again:");
+                goto Age;
+            }
+
+            else
+            {
+                if (age < 1)
                 {
-                    ConsoleColor.Red.WriteConsole("Age cannot be negative. Please try again:");
+                    ConsoleColor.Red.WriteConsole("Age cannot be less than 1. Please try again:");
                     goto Age;
                 }
                 ConsoleColor.Cyan.WriteConsole("Enter id of the group you want to add student:");
 
-            Id: string idStr = Console.ReadLine();
+            Id: string groupIdStr = Console.ReadLine();
 
-                if (string.IsNullOrWhiteSpace(idStr))
+                if (string.IsNullOrWhiteSpace(groupIdStr))
                 {
                     ConsoleColor.Red.WriteConsole("Input can't be empty");
                     goto Id;
                 }
-                int id;
+                int groupId;
 
-                bool isCorrectIdFormat = int.TryParse(idStr, out id);
-
-                if (isCorrectIdFormat)
+                if (!int.TryParse(groupIdStr, out groupId))
                 {
-                    if (id < 1)
+                    ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidIdFormat + ". Please try again:");
+                    goto Id;
+                }
+                else
+                {
+                    if (groupId < 1)
                     {
                         ConsoleColor.Red.WriteConsole("Id cannot be less than 1. Please try again:");
                         goto Id;
@@ -99,7 +106,7 @@ namespace CourseApp.Controllers
 
                     try
                     {
-                        var addedGroup = _groupService.GetById(id);
+                        var addedGroup = _groupService.GetById(groupId);
 
                         _studentService.Create(new Student() { Name = name, Surname = surname, Age = age, Group = addedGroup });
 
@@ -115,16 +122,6 @@ namespace CourseApp.Controllers
                         Console.WriteLine(ex.Message);
                     }
                 }
-                else
-                {
-                    ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidIdFormat + ". Please try again:");
-                    goto Id;
-                }
-            }
-            else
-            {
-                ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidAgeFormat + ". Please try again:");
-                goto Age;
             }
         }
 
@@ -141,9 +138,12 @@ namespace CourseApp.Controllers
 
             int id;
 
-            bool isCorrectIdFormat = int.TryParse(idStr, out id);
-
-            if (isCorrectIdFormat)
+            if (!int.TryParse(idStr, out id))
+            {
+                ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidIdFormat + ". Please try again:");
+                goto Id;
+            }
+            else
             {
                 if (id < 1)
                 {
@@ -155,53 +155,105 @@ namespace CourseApp.Controllers
                 {
                     Student updatedStudent = _studentService.GetById(id);
 
-                    ConsoleColor.Yellow.WriteConsole($"Name : {updatedStudent.Name}, Surname: {updatedStudent.Surname}, Age: {updatedStudent.Age}, Group id: {updatedStudent.Group.Id}");
+                    if (updatedStudent is not null)
+                        ConsoleColor.Yellow.WriteConsole($"Name : {updatedStudent.Name}, Surname: {updatedStudent.Surname}, Age: {updatedStudent.Age}, Group id: {updatedStudent.Group.Id}");
 
                     ConsoleColor.Cyan.WriteConsole("Enter name (Press Enter if you don't want to change):");
-                    string name = Console.ReadLine();
+                Name: string name = Console.ReadLine();
 
-                    if (!string.IsNullOrWhiteSpace(name))
+                    if (!Regex.IsMatch(name, @"^\p{L}{1,20}$") && !string.IsNullOrWhiteSpace(name))
                     {
-                        updatedStudent.Name = name.Trim().ToLower();
+                        ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidNameFormat);
+                        goto Name;
+                    }
+                    else if (!string.IsNullOrWhiteSpace(name))
+                    {
+                        updatedStudent.Name = name.Trim();
                     }
 
-                    ConsoleColor.Cyan.WriteConsole("Enter surname (Press Enter if you don't want to change):");
-                    string surname = Console.ReadLine();
 
-                    if (!string.IsNullOrWhiteSpace(surname))
+                    ConsoleColor.Cyan.WriteConsole("Enter surname (Press Enter if you don't want to change):");
+                Surname: string surname = Console.ReadLine();
+
+                    if (!Regex.IsMatch(surname, @"^\p{L}{1,20}$") && !string.IsNullOrWhiteSpace(surname))
                     {
-                        updatedStudent.Name = surname.Trim().ToLower();
+                        ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidSurnameFormat);
+                        goto Surname;
+                    }
+                    else if (!string.IsNullOrWhiteSpace(surname))
+                    {
+                        updatedStudent.Surname = surname.Trim();
                     }
 
                     ConsoleColor.Cyan.WriteConsole("Enter age (Press Enter if you don't want to change):");
-
                 Age: string ageStr = Console.ReadLine();
 
                     int age;
 
-                    bool isCorrectAgeFormat = int.TryParse(ageStr, out age);
-
-                    if (isCorrectAgeFormat)
+                    if (!int.TryParse(ageStr, out age) && !string.IsNullOrWhiteSpace(ageStr))
                     {
-                        if (age < 0)
+                        ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidAgeFormat + ". Please try again:");
+                        goto Age;
+                    }
+                    else
+                    {
+                        if (age < 1)
                         {
-                            ConsoleColor.Red.WriteConsole("Age cannot be negative. Please try again:");
+                            ConsoleColor.Red.WriteConsole("Age cannot be less than 1. Please try again:");
                             goto Age;
                         }
 
-                        updatedStudent.Age = age;
-
-
+                        if (!string.IsNullOrWhiteSpace(ageStr))
+                        {
+                            updatedStudent.Age = age;
+                        }
                     }
-                }
-                catch (NotFoundException ex)
-                {
-                    ConsoleColor.Red.WriteConsole(ex.Message);
-                    return;
+
+                    ConsoleColor.Cyan.WriteConsole("Enter group id you want to switch (Press Enter if you don't want to change):");
+                GroupId: string groupIdStr = Console.ReadLine();
+
+                    int groupId;
+
+                    if (!int.TryParse(groupIdStr, out groupId) && !string.IsNullOrWhiteSpace(groupIdStr))
+                    {
+                        ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidIdFormat + ". Please try again:");
+                        goto GroupId;
+                    }
+                    else if (groupId < 1 && !string.IsNullOrWhiteSpace(groupIdStr))
+                    {
+                        ConsoleColor.Red.WriteConsole("Id cannot be less than 1. Please try again:");
+                        goto GroupId;
+                    }
+                    else
+                    {
+                        try
+                        {
+                            var group = _groupService.GetById(_studentService.GetById(id).Group.Id);
+
+                            if (!string.IsNullOrWhiteSpace(groupIdStr))
+                            {
+                                group = _groupService.GetById(groupId);
+                                updatedStudent.Group = group;
+                            }
+
+                            _studentService.Update(updatedStudent);
+
+                            ConsoleColor.Green.WriteConsole(ResponseMessages.UpdateSuccess);
+                        }
+                        catch (NotFoundException)
+                        {
+                            ConsoleColor.Red.WriteConsole("There is no group with specified id. Please try again:");
+                            goto GroupId;
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.Message);
+                    ConsoleColor.Red.WriteConsole(ex.Message);
                 }
             }
         }

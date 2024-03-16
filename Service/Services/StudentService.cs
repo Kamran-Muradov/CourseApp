@@ -37,9 +37,7 @@ namespace Service.Services
         {
             ArgumentNullException.ThrowIfNull(id);
 
-            Student student = _studentRepository.GetById((int)id);
-
-            if (student is null) throw new NotFoundException(ResponseMessages.DataNotFound);
+            Student student = _studentRepository.GetById((int)id) ?? throw new NotFoundException(ResponseMessages.DataNotFound);
 
             _studentRepository.Delete(student);
         }
@@ -53,7 +51,7 @@ namespace Service.Services
         {
             ArgumentNullException.ThrowIfNull(id);
 
-            return _studentRepository.GetById((int)id);
+            return _studentRepository.GetById((int)id) ?? throw new NotFoundException(ResponseMessages.DataNotFound);
         }
 
         public List<Student> GetAllByAge(int? age)

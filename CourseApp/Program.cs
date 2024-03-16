@@ -59,6 +59,10 @@ Operation: ShowMenu();
                 studentController.Create();
                 break;
 
+            case (int)OperationType.UpdateStudent:
+                studentController.Update();
+                break;
+
             default:
                 ConsoleColor.Red.WriteConsole("Operation is wrong, please choose again");
                 goto Operation;

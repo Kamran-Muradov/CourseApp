@@ -4,6 +4,7 @@ using Service.Helpers.Exceptions;
 using Service.Helpers.Extensions;
 using Service.Services;
 using Service.Services.Interfaces;
+using System.Text.RegularExpressions;
 
 namespace CourseApp.Controllers
 {
@@ -31,9 +32,16 @@ namespace CourseApp.Controllers
 
             ConsoleColor.Cyan.WriteConsole("Enter teacher name of this group:");
         Teacher: string teacher = Console.ReadLine().Trim().ToLower();
+
             if (string.IsNullOrEmpty(teacher))
             {
                 ConsoleColor.Red.WriteConsole("Input can't be empty");
+                goto Teacher;
+            }
+
+            if (!Regex.IsMatch(teacher, @"^[\p{L}]+(?:\s[\p{L}]+)?$"))
+            {
+                ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidNameFormat);
                 goto Teacher;
             }
 
@@ -46,7 +54,7 @@ namespace CourseApp.Controllers
             }
             try
             {
-                _groupService.Create(new Group { Name = name, Teacher = teacher, Room = room });
+                _groupService.Create(new Domain.Models.Group { Name = name, Teacher = teacher, Room = room });
 
                 ConsoleColor.Green.WriteConsole("Data successfully added");
             }
@@ -57,7 +65,7 @@ namespace CourseApp.Controllers
             }
         }
 
-        public void Update()///
+        public void Update()
         {
             ConsoleColor.Cyan.WriteConsole("Enter id of the group you want to update:");
         Id: string idStr = Console.ReadLine();
@@ -70,9 +78,12 @@ namespace CourseApp.Controllers
 
             int id;
 
-            bool isCorrectIdFormat = int.TryParse(idStr, out id);
-
-            if (isCorrectIdFormat)
+            if (!int.TryParse(idStr, out id))
+            {
+                ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidIdFormat + ". Please try again:");
+                goto Id;
+            }
+            else
             {
                 if (id < 1)
                 {
@@ -81,7 +92,7 @@ namespace CourseApp.Controllers
                 }
                 try
                 {
-                    Group updatedGroup = _groupService.GetById(id);
+                    Domain.Models.Group updatedGroup = _groupService.GetById(id);
 
                     ConsoleColor.Cyan.WriteConsole("Enter name (Press Enter if you don't want to change):");
                     string name = Console.ReadLine();
@@ -92,11 +103,17 @@ namespace CourseApp.Controllers
                     }
 
                     ConsoleColor.Cyan.WriteConsole("Enter teacher name of this group (Press Enter if you don't want to change):");
-                    string teacher = Console.ReadLine();
+                Teacher: string teacher = Console.ReadLine();
 
                     if (!string.IsNullOrWhiteSpace(teacher))
                     {
                         updatedGroup.Teacher = teacher.Trim().ToLower();
+                    }
+
+                    if (!Regex.IsMatch(teacher, @"^[\p{L}]+(?:\s[\p{L}]+)?$"))
+                    {
+                        ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidNameFormat);
+                        goto Teacher;
                     }
 
                     ConsoleColor.Cyan.WriteConsole("Enter room name of this group (Press Enter if you don't want to change):");
@@ -121,12 +138,7 @@ namespace CourseApp.Controllers
                     ConsoleColor.Red.WriteConsole(ex.Message);
                 }
             }
-            else
-            {
-                ConsoleColor.Red.WriteConsole("Id format is wrong. Please try again:");
-                goto Id;
-            }
-        } ///
+        }
 
         public void Delete()
         {
@@ -140,48 +152,45 @@ namespace CourseApp.Controllers
             }
 
             int id;
-            bool isCorrectIdFormat = int.TryParse(idStr, out id);
 
-            if (id < 1)
+            if (!int.TryParse(idStr, out id))
             {
-                ConsoleColor.Red.WriteConsole("Id cannot be less than 1. Please try again:");
+                ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidIdFormat + ". Please try again:");
                 goto Id;
             }
-
-            if (isCorrectIdFormat)
+            else
             {
-                Console.WriteLine("Are you sure you want to delete this group? (Press 'Y' for yes, 'N' for no)");
-            DeleteChoice: string deleteChoice = Console.ReadLine().Trim().ToLower();
-
-                if (deleteChoice == "n")
+                if (id < 1)
                 {
-                    return;
+                    ConsoleColor.Red.WriteConsole("Id cannot be less than 1. Please try again:");
+                    goto Id;
                 }
-                else if (deleteChoice == "y")
+
+                try
                 {
-                    try
+                    Console.WriteLine("Are you sure you want to delete this group? (Press 'Y' for yes, 'N' for no)");
+                DeleteChoice: string deleteChoice = Console.ReadLine().Trim().ToLower();
+                    if (deleteChoice == "n")
+                    {
+                        return;
+                    }
+                    else if (deleteChoice == "y")
                     {
                         _groupService.Delete(id);
                         ConsoleColor.Green.WriteConsole("Data successfully deleted");
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        ConsoleColor.Red.WriteConsole(ex.Message);
-                        return;
+                        ConsoleColor.Red.WriteConsole("Wrong operation. Please try again");
+                        goto DeleteChoice;
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    ConsoleColor.Red.WriteConsole("Wrong operation. Please try again");
-                    goto DeleteChoice;
+                    ConsoleColor.Red.WriteConsole(ex.Message);
                 }
             }
-            else
-            {
-                ConsoleColor.Red.WriteConsole("Id format is wrong. Please try again:");
-                goto Id;
-            }
-        } ///
+        }
 
         public void GetAll()
         {
@@ -265,9 +274,13 @@ namespace CourseApp.Controllers
             }
 
             int id;
-            bool isCorrectIdFormat = int.TryParse(idStr, out id);
 
-            if (isCorrectIdFormat)
+            if (!int.TryParse(idStr, out id))
+            {
+                ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidIdFormat + ". Please try again:");
+                goto Id;
+            }
+            else
             {
                 if (id < 1)
                 {
@@ -284,13 +297,7 @@ namespace CourseApp.Controllers
                 catch (Exception ex)
                 {
                     ConsoleColor.Red.WriteConsole(ex.Message);
-                    return;
                 }
-            }
-            else
-            {
-                ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidIdFormat + ". Please try again:");
-                goto Id;
             }
         }
 
