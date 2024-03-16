@@ -5,6 +5,7 @@ using Repository.Data;
 using Service.Helpers.Enums;
 using Service.Helpers.Extensions;
 using Service.Services;
+using Service.Services.Interfaces;
 
 GroupController groupController = new();
 
@@ -71,10 +72,50 @@ Operation: ShowMenu();
                 studentController.GetAll();
                 break;
 
+            case (int)OperationType.GetAllStudentsByAge:
+                studentController.GetAllByAge();
+                break;
+
+            case (int)OperationType.GetAllStudentsByGroupId:
+                studentController.GetAllByGroupId();
+                break;
+
+            case (int)OperationType.GetStudentById:
+                studentController.GetById();
+                break;
+
+            case (int)OperationType.SearchStudentsByNameOrSurname:
+                studentController.SearchByNameOrSurname();
+                break;
+
+            case 0:
+                Console.WriteLine("Are you sure? (Press 'Y' for yes, 'N' for no)");
+            ExitChoice: string exitChoice = Console.ReadLine().Trim().ToLower();
+
+                if (exitChoice == "n")
+                {
+                    goto Operation;
+                }
+                else if (exitChoice == "y")
+                {
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    ConsoleColor.Red.WriteConsole("Wrong operation. Please try again:");
+                    goto ExitChoice;
+                }
+                break;
+
             default:
-                ConsoleColor.Red.WriteConsole("Operation is wrong, please choose again");
+                ConsoleColor.Red.WriteConsole("Operation is wrong, please try again");
                 goto Operation;
         }
+    }
+    else
+    {
+        ConsoleColor.Red.WriteConsole("Operation format is wrong, try again:");
+        goto Operation;
     }
 }
 

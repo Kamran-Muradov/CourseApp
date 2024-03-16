@@ -53,6 +53,7 @@ namespace CourseApp.Controllers
 
             ConsoleColor.Cyan.WriteConsole("Enter room name of this group:");
         Room: string room = Console.ReadLine().Trim();
+
             if (string.IsNullOrEmpty(room))
             {
                 ConsoleColor.Red.WriteConsole("Input can't be empty");
@@ -67,7 +68,6 @@ namespace CourseApp.Controllers
             catch (Exception ex)
             {
                 ConsoleColor.Red.WriteConsole(ex.Message);
-                goto Name;
             }
         }
 
@@ -96,51 +96,36 @@ namespace CourseApp.Controllers
                     ConsoleColor.Red.WriteConsole("Id cannot be less than 1. Please try again:");
                     goto Id;
                 }
-                try
+
+                if (!_groupService.GetAll().Any(m => m.Id == id))
                 {
-                    Domain.Models.Group updatedGroup = _groupService.GetById(id);
+                    ConsoleColor.Red.WriteConsole(ResponseMessages.DataNotFound);
+                    return;
+                }
 
-                    if (updatedGroup != null)
-                        Print(updatedGroup);
+                ConsoleColor.Cyan.WriteConsole("Enter name (Press Enter if you don't want to change):");
+                string updatedName = Console.ReadLine().Trim();
 
-                    ConsoleColor.Cyan.WriteConsole("Enter name (Press Enter if you don't want to change):");
-                    string name = Console.ReadLine();
+                ConsoleColor.Cyan.WriteConsole("Enter teacher name of this group (Press Enter if you don't want to change):");
+            Teacher: string updatedTeacher = Console.ReadLine().Trim();
 
-                    if (!string.IsNullOrWhiteSpace(name))
-                    {
-                        updatedGroup.Name = name.Trim();
-                    }
-
-                    ConsoleColor.Cyan.WriteConsole("Enter teacher name of this group (Press Enter if you don't want to change):");
-                Teacher: string teacher = Console.ReadLine();
-
-                    if (!string.IsNullOrWhiteSpace(teacher))
-                    {
-                        updatedGroup.Teacher = teacher.Trim();
-                    }
-
-                    if (!Regex.IsMatch(teacher, @"^[\p{L}]+(?:\s[\p{L}]+)?$"))
+                if (!string.IsNullOrEmpty(updatedTeacher))
+                {
+                    if (!Regex.IsMatch(updatedTeacher, @"^[\p{L}]+(?:\s[\p{L}]+)?$"))
                     {
                         ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidNameFormat);
                         goto Teacher;
                     }
+                }
 
-                    ConsoleColor.Cyan.WriteConsole("Enter room name of this group (Press Enter if you don't want to change):");
-                    string room = Console.ReadLine();
+                ConsoleColor.Cyan.WriteConsole("Enter room name of this group (Press Enter if you don't want to change):");
+                string updatedRoom = Console.ReadLine().Trim();
 
-                    if (!string.IsNullOrWhiteSpace(room))
-                    {
-                        updatedGroup.Room = room.Trim();
-                    }
-
-                    _groupService.Update(updatedGroup);
+                try
+                {
+                    _groupService.Update(new() { Id = id, Name = updatedName, Teacher = updatedTeacher, Room = updatedRoom });
 
                     ConsoleColor.Green.WriteConsole(ResponseMessages.UpdateSuccess);
-                }
-                catch (NotFoundException ex)
-                {
-                    ConsoleColor.Red.WriteConsole(ex.Message);
-                    return;
                 }
                 catch (Exception ex)
                 {
@@ -177,31 +162,37 @@ namespace CourseApp.Controllers
 
                 try
                 {
-                    Console.WriteLine("Are you sure you want to delete this group? Group and its students will be deleted (Press 'Y' for yes, 'N' for no)");
+                    var group = _groupService.GetById(id);
 
-                DeleteChoice: string deleteChoice = Console.ReadLine().Trim().ToLower();
-
-                    if (deleteChoice == "n")
+                    if (group is not null)
                     {
-                        return;
-                    }
-                    else if (deleteChoice == "y")
-                    {
-                        _groupService.Delete(id);
+                        Print(group);
 
-                        List<Student> students = _studentService.GetAllWithExpression(m => m.Id == id);
+                        Console.WriteLine("Are you sure you want to delete this group? Group and its students will be deleted (Press 'Y' for yes, 'N' for no)");
+                    DeleteChoice: string deleteChoice = Console.ReadLine().Trim().ToLower();
 
-                        foreach (var item in students)
+                        if (deleteChoice == "n")
                         {
-                            _studentService.Delete(item.Id);
+                            return;
                         }
+                        else if (deleteChoice == "y")
+                        {
+                            _groupService.Delete(id);
 
-                        ConsoleColor.Green.WriteConsole("Data successfully deleted");
-                    }
-                    else
-                    {
-                        ConsoleColor.Red.WriteConsole("Wrong operation. Please try again:");
-                        goto DeleteChoice;
+                            List<Student> students = _studentService.GetAllWithExpression(m => m.Group.Id == id);
+
+                            foreach (var item in students)
+                            {
+                                _studentService.Delete(item.Id);
+                            }
+
+                            ConsoleColor.Green.WriteConsole("Data successfully deleted");
+                        }
+                        else
+                        {
+                            ConsoleColor.Red.WriteConsole("Wrong operation. Please try again:");
+                            goto DeleteChoice;
+                        }
                     }
                 }
                 catch (Exception ex)

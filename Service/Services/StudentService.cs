@@ -30,6 +30,26 @@ namespace Service.Services
 
             Student student = _studentRepository.GetById(data.Id) ?? throw new NotFoundException(ResponseMessages.DataNotFound);
 
+            if (!string.IsNullOrEmpty(data.Name))
+            {
+                student.Name = data.Name;
+            }
+
+            if (!string.IsNullOrEmpty(data.Surname))
+            {
+                student.Surname = data.Surname;
+            }
+
+            if (data.Age > 0)
+            {
+                student.Age = data.Age;
+            }
+
+            if (data.Group is not null)
+            {
+                student.Group = data.Group;
+            }
+
             _studentRepository.Update(student);
         }
 

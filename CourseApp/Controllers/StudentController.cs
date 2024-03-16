@@ -27,7 +27,7 @@ namespace CourseApp.Controllers
             }
 
             ConsoleColor.Cyan.WriteConsole("Enter name:");
-        Name: string name = Console.ReadLine().Trim().ToLower();
+        Name: string name = Console.ReadLine().Trim();
 
             if (string.IsNullOrEmpty(name))
             {
@@ -42,7 +42,7 @@ namespace CourseApp.Controllers
             }
 
             ConsoleColor.Cyan.WriteConsole("Enter surname:");
-        Surname: string surname = Console.ReadLine().Trim().ToLower();
+        Surname: string surname = Console.ReadLine().Trim();
 
             if (string.IsNullOrEmpty(surname))
             {
@@ -143,109 +143,98 @@ namespace CourseApp.Controllers
                     goto Id;
                 }
 
-                try
+                if (!_studentService.GetAll().Any(m => m.Id == id))
                 {
-                    Student updatedStudent = _studentService.GetById(id);
+                    ConsoleColor.Red.WriteConsole(ResponseMessages.DataNotFound);
+                    return;
+                }
 
-                    if (updatedStudent is not null)
-                        ConsoleColor.Yellow.WriteConsole($"Name : {updatedStudent.Name}, Surname: {updatedStudent.Surname}, Age: {updatedStudent.Age}, Group id: {updatedStudent.Group.Id}");
+                ConsoleColor.Cyan.WriteConsole("Enter name (Press Enter if you don't want to change):");
+            Name: string updatedName = Console.ReadLine().Trim();
 
-                    ConsoleColor.Cyan.WriteConsole("Enter name (Press Enter if you don't want to change):");
-                Name: string name = Console.ReadLine();
-
-                    if (!Regex.IsMatch(name, @"^\p{L}{1,20}$") && !string.IsNullOrWhiteSpace(name))
+                if (!string.IsNullOrEmpty(updatedName))
+                {
+                    if (!Regex.IsMatch(updatedName, @"^\p{L}{1,20}$"))
                     {
                         ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidNameFormat);
                         goto Name;
                     }
-                    else if (!string.IsNullOrWhiteSpace(name))
-                    {
-                        updatedStudent.Name = name.Trim();
-                    }
+                }
 
+                ConsoleColor.Cyan.WriteConsole("Enter surname (Press Enter if you don't want to change):");
+            Surname: string updatedSurname = Console.ReadLine().Trim();
 
-                    ConsoleColor.Cyan.WriteConsole("Enter surname (Press Enter if you don't want to change):");
-                Surname: string surname = Console.ReadLine();
-
-                    if (!Regex.IsMatch(surname, @"^\p{L}{1,20}$") && !string.IsNullOrWhiteSpace(surname))
+                if (!string.IsNullOrEmpty(updatedSurname))
+                {
+                    if (!Regex.IsMatch(updatedSurname, @"^\p{L}{1,20}$"))
                     {
                         ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidSurnameFormat);
                         goto Surname;
                     }
-                    else if (!string.IsNullOrWhiteSpace(surname))
-                    {
-                        updatedStudent.Surname = surname.Trim();
-                    }
+                }
 
-                    ConsoleColor.Cyan.WriteConsole("Enter age (Press Enter if you don't want to change):");
-                Age: string ageStr = Console.ReadLine();
+                ConsoleColor.Cyan.WriteConsole("Enter age (Press Enter if you don't want to change):");
+            Age: string ageStr = Console.ReadLine();
 
-                    int age;
+                int updatedAge;
 
-                    if (!int.TryParse(ageStr, out age) && !string.IsNullOrWhiteSpace(ageStr))
+                if (!string.IsNullOrWhiteSpace(ageStr))
+                {
+                    if (!int.TryParse(ageStr, out updatedAge))
                     {
                         ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidAgeFormat + ". Please try again:");
                         goto Age;
                     }
-                    else
+                    else if (updatedAge < 1)
                     {
-                        if (age < 1)
-                        {
-                            ConsoleColor.Red.WriteConsole("Age cannot be less than 1. Please try again:");
-                            goto Age;
-                        }
-
-                        if (!string.IsNullOrWhiteSpace(ageStr))
-                        {
-                            updatedStudent.Age = age;
-                        }
+                        ConsoleColor.Red.WriteConsole("Age cannot be less than 1. Please try again:");
+                        goto Age;
                     }
+                }
 
-                    ConsoleColor.Cyan.WriteConsole("Enter group id you want to switch (Press Enter if you don't want to change):");
-                GroupId: string groupIdStr = Console.ReadLine();
+                ConsoleColor.Cyan.WriteConsole("Enter group id you want to switch (Press Enter if you don't want to change):");
+            GroupId: string groupIdStr = Console.ReadLine();
 
-                    int groupId;
+                int groupId = 0;
 
-                    if (!int.TryParse(groupIdStr, out groupId) && !string.IsNullOrWhiteSpace(groupIdStr))
+                if (!string.IsNullOrWhiteSpace(groupIdStr))
+                {
+                    if (!int.TryParse(groupIdStr, out groupId))
                     {
                         ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidIdFormat + ". Please try again:");
                         goto GroupId;
                     }
-                    else if (groupId < 1 && !string.IsNullOrWhiteSpace(groupIdStr))
+                    else if (groupId < 1)
                     {
                         ConsoleColor.Red.WriteConsole("Id cannot be less than 1. Please try again:");
                         goto GroupId;
                     }
-                    else
+                }
+
+                Domain.Models.Group updatedGroup = null;
+
+                if (groupId > 0)
+                {
+                    try
                     {
-                        try
-                        {
-                            var group = _groupService.GetById(_studentService.GetById(id).Group.Id);
-
-                            if (!string.IsNullOrWhiteSpace(groupIdStr))
-                            {
-                                group = _groupService.GetById(groupId);
-                                updatedStudent.Group = group;
-                            }
-
-                            _studentService.Update(updatedStudent);
-
-                            ConsoleColor.Green.WriteConsole(ResponseMessages.UpdateSuccess);
-                        }
-                        catch (NotFoundException)
-                        {
-                            ConsoleColor.Red.WriteConsole("There is no group with specified id. Please try again:");
-                            goto GroupId;
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.Message);
-                        }
+                        updatedGroup = _groupService.GetById(groupId);
                     }
+                    catch (Exception)
+                    {
+                        ConsoleColor.Red.WriteConsole("There is no group with specified id. Please try again:");
+                        goto GroupId;
+                    }
+                }
+
+                try
+                {
+                    _studentService.Update(new() { Id = id, Name = updatedName, Surname = updatedSurname, Group = updatedGroup });
+
+                    ConsoleColor.Green.WriteConsole(ResponseMessages.UpdateSuccess);
                 }
                 catch (Exception ex)
                 {
-                    ConsoleColor.Red.WriteConsole(ex.Message);
+                    Console.WriteLine(ex.Message);
                 }
             }
         }
@@ -278,21 +267,29 @@ namespace CourseApp.Controllers
 
             try
             {
-                Console.WriteLine("Are you sure you want to delete this group? (Press 'Y' for yes, 'N' for no)");
-            DeleteChoice: string deleteChoice = Console.ReadLine().Trim().ToLower();
-                if (deleteChoice == "n")
+                var student = _studentService.GetById(id);
+
+                if (student is not null)
                 {
-                    return;
-                }
-                else if (deleteChoice == "y")
-                {
-                    _studentService.Delete(id);
-                    ConsoleColor.Green.WriteConsole("Data successfully deleted");
-                }
-                else
-                {
-                    ConsoleColor.Red.WriteConsole("Wrong operation. Please try again");
-                    goto DeleteChoice;
+                    Print(student);
+
+                    Console.WriteLine("Are you sure you want to delete this student? (Press 'Y' for yes, 'N' for no)");
+                DeleteChoice: string deleteChoice = Console.ReadLine().Trim().ToLower();
+
+                    if (deleteChoice == "n")
+                    {
+                        return;
+                    }
+                    else if (deleteChoice == "y")
+                    {
+                        _studentService.Delete(id);
+                        ConsoleColor.Green.WriteConsole("Data successfully deleted");
+                    }
+                    else
+                    {
+                        ConsoleColor.Red.WriteConsole("Wrong operation. Please try again");
+                        goto DeleteChoice;
+                    }
                 }
             }
             catch (Exception ex)
@@ -311,12 +308,12 @@ namespace CourseApp.Controllers
                 return;
             }
 
-            PrintAllStudents(response);
+            PrintAll(response);
         }
 
         public void GetAllByAge()
         {
-        Teacher: Console.WriteLine("Enter age:");
+            ConsoleColor.Cyan.WriteConsole("Enter age:");
 
         Age: string ageStr = Console.ReadLine();
 
@@ -349,20 +346,112 @@ namespace CourseApp.Controllers
                 return;
             }
 
-            PrintAllStudents(foundStudents);
-            //catch (Exception ex)
-            //{
-            //    Console.WriteLine(ex.Message);
-            //}
+            PrintAll(foundStudents);
+        }
+
+        public void GetAllByGroupId()
+        {
+            ConsoleColor.Cyan.WriteConsole("Enter group id:");
+
+        Age: string groupIdStr = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(groupIdStr))
+            {
+                ConsoleColor.Red.WriteConsole("Input can't be empty");
+                goto Age;
+            }
+
+            int groupId;
+
+            if (!int.TryParse(groupIdStr, out groupId))
+            {
+                ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidAgeFormat + ". Please try again:");
+                goto Age;
+            }
+
+            else if (groupId < 1)
+            {
+
+                ConsoleColor.Red.WriteConsole("Group id cannot be less than 1. Please try again:");
+                goto Age;
+            }
+
+            List<Student> foundStudents = _studentService.GetAllWithExpression(m => m.Group.Id == groupId);
+
+            if (foundStudents.Count == 0)
+            {
+                ConsoleColor.Red.WriteConsole(ResponseMessages.DataNotFound);
+                return;
+            }
+
+            PrintAll(foundStudents);
+        }
+
+        public void GetById()
+        {
+            ConsoleColor.Cyan.WriteConsole("Enter id of the student:");
+        Id: string idStr = Console.ReadLine();
+
+            if (string.IsNullOrWhiteSpace(idStr))
+            {
+                ConsoleColor.Red.WriteConsole("Input can't be empty");
+                goto Id;
+            }
+
+            int id;
+
+            if (!int.TryParse(idStr, out id))
+            {
+                ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidIdFormat + ". Please try again:");
+                goto Id;
+            }
+            else if (id < 1)
+            {
+                ConsoleColor.Red.WriteConsole("Id cannot be less than 1. Please try again:");
+                goto Id;
+            }
+
+            try
+            {
+                var response = _studentService.GetById(id);
+
+                Print(response);
+            }
+            catch (Exception ex)
+            {
+                ConsoleColor.Red.WriteConsole(ex.Message);
+            }
+        }
+
+        public void SearchByNameOrSurname()
+        {
+            ConsoleColor.Cyan.WriteConsole("Enter search text:");
+
+            string searchText = Console.ReadLine().Trim().ToLower();
+
+            var response = _studentService.GetAllWithExpression(m => m.Name.Trim().ToLower().Contains(searchText) || m.Surname.Trim().ToLower().Contains(searchText));
+
+            if (response.Count == 0 || string.IsNullOrWhiteSpace(searchText))
+            {
+                ConsoleColor.Red.WriteConsole(ResponseMessages.DataNotFound);
+                return;
+            }
+
+            PrintAll(response);
         }
 
 
+        private void Print(Student student)
+        {
+            ConsoleColor.Yellow.WriteConsole($" Id: {student.Id}, Name : {student.Name}, Surname: {student.Surname}, Age: {student.Age}, Group id: {student.Group.Id}");
 
-        private void PrintAllStudents(List<Student> students)
+        }
+
+        private void PrintAll(List<Student> students)
         {
             foreach (var item in students)
             {
-                ConsoleColor.Yellow.WriteConsole($" Id: {item.Id}, Name : {item.Name}, Surname: {item.Surname}, Age: {item.Age}, Group id: {item.Group.Id}");
+                Print(item);
             }
         }
     }

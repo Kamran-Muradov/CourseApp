@@ -31,6 +31,21 @@ namespace Service.Services
 
             Group group = _groupRepository.GetById(data.Id) ?? throw new NotFoundException(ResponseMessages.DataNotFound);
 
+            if (!string.IsNullOrEmpty(data.Name))
+            {
+                group.Name = data.Name;
+            }
+
+            if (!string.IsNullOrEmpty(data.Teacher))
+            {
+                group.Teacher = data.Teacher;
+            }
+
+            if (!string.IsNullOrEmpty(data.Room))
+            {
+                group.Room = data.Room;
+            }
+
             _groupRepository.Update(group);
         }
 
