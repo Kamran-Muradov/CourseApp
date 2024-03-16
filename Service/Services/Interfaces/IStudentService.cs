@@ -8,9 +8,7 @@ namespace Service.Services.Interfaces
         void Update(Student data);
         void Delete(int? id);
         List<Student> GetAll();
+        public List<Student> GetAllWithExpression(Func<Student, bool> predicate);
         Student GetById(int? id);
-        List<Student> GetAllByAge(int? age);
-        List<Student> GetAllByGroupId(int? groupId);
-        List<Student> SearchByNameOrSurname(string searchText);
     }
 }

@@ -47,25 +47,16 @@ namespace Service.Services
             return _studentRepository.GetAll();
         }
 
+        public List<Student> GetAllWithExpression(Func<Student, bool> predicate)
+        {
+            return _studentRepository.GetAllWithExpression(predicate);
+        }
+
         public Student GetById(int? id)
         {
             ArgumentNullException.ThrowIfNull(id);
 
             return _studentRepository.GetById((int)id) ?? throw new NotFoundException(ResponseMessages.DataNotFound);
-        }
-
-        public List<Student> GetAllByAge(int? age)
-        {
-            ArgumentNullException.ThrowIfNull(age);
-
-            return _studentRepository.GetAllByAge((int)age);
-        }
-
-        public List<Student> GetAllByGroupId(int? groupId)
-        {
-            ArgumentNullException.ThrowIfNull(groupId);
-
-            return _studentRepository.GetAllByGroupId((int)groupId);
         }
 
         public List<Student> SearchByNameOrSurname(string searchText)
@@ -74,5 +65,21 @@ namespace Service.Services
 
             return _studentRepository.GetAllWithExpression(m => m.Name.Trim().ToLower().Contains(searchText) || m.Surname.Trim().ToLower().Contains(searchText));
         }
+
+        //public List<Student> GetAllByAge(int? age)
+        //{
+        //    ArgumentNullException.ThrowIfNull(age);
+
+        //    return _studentRepository.GetAllByAge((int)age);
+        //}
+
+        //public List<Student> GetAllByGroupId(int? groupId)
+        //{
+        //    ArgumentNullException.ThrowIfNull(groupId);
+
+        //    return _studentRepository.GetAllByGroupId((int)groupId);
+        //}
+
+
     }
 }

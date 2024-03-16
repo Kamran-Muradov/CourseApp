@@ -63,6 +63,14 @@ Operation: ShowMenu();
                 studentController.Update();
                 break;
 
+            case (int)OperationType.DeleteStudent:
+                studentController.Delete();
+                break;
+
+            case (int)OperationType.GetAllStudents:
+                studentController.GetAll();
+                break;
+
             default:
                 ConsoleColor.Red.WriteConsole("Operation is wrong, please choose again");
                 goto Operation;

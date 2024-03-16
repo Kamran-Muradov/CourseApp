@@ -168,7 +168,7 @@ namespace CourseApp.Controllers
 
                 try
                 {
-                    Console.WriteLine("Are you sure you want to delete this group? (Press 'Y' for yes, 'N' for no)");
+                    Console.WriteLine("Are you sure you want to delete this group? Group and its students will be deleted (Press 'Y' for yes, 'N' for no)");
                 DeleteChoice: string deleteChoice = Console.ReadLine().Trim().ToLower();
                     if (deleteChoice == "n")
                     {
@@ -177,6 +177,14 @@ namespace CourseApp.Controllers
                     else if (deleteChoice == "y")
                     {
                         _groupService.Delete(id);
+
+                        List<Student> students = _studentService.GetAllWithExpression(m => m.Id == id);
+
+                        foreach (var item in students)
+                        {
+                            _studentService.Delete(item.Id);
+                        }
+
                         ConsoleColor.Green.WriteConsole("Data successfully deleted");
                     }
                     else
