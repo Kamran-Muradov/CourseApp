@@ -21,3 +21,5 @@ C:\Workspace Code Academy\CourseApp\CourseApp\obj\Debug\net6.0\refint\CourseApp.
 C:\Workspace Code Academy\CourseApp\CourseApp\obj\Debug\net6.0\CourseApp.pdb
 C:\Workspace Code Academy\CourseApp\CourseApp\obj\Debug\net6.0\CourseApp.genruntimeconfig.cache
 C:\Workspace Code Academy\CourseApp\CourseApp\obj\Debug\net6.0\ref\CourseApp.dll
+C:\Workspace Code Academy\CourseApp\CourseApp\bin\Debug\net6.0\Spectre.Console.dll
+C:\Workspace Code Academy\CourseApp\CourseApp\bin\Debug\net6.0\ConsoleTables.dll

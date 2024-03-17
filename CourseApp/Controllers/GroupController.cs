@@ -1,6 +1,6 @@
-﻿using Domain.Models;
+﻿using ConsoleTables;
+using Domain.Models;
 using Service.Helpers.Constants;
-using Service.Helpers.Exceptions;
 using Service.Helpers.Extensions;
 using Service.Services;
 using Service.Services.Interfaces;
@@ -21,7 +21,7 @@ namespace CourseApp.Controllers
 
         public void Create()
         {
-            ConsoleColor.Cyan.WriteConsole("Enter name:");
+            ConsoleColor.Yellow.WriteConsole("Enter name:");
         Name: string name = Console.ReadLine().Trim();
 
             if (string.IsNullOrEmpty(name))
@@ -36,7 +36,7 @@ namespace CourseApp.Controllers
                 goto Name;
             }
 
-            ConsoleColor.Cyan.WriteConsole("Enter teacher name of this group:");
+            ConsoleColor.Yellow.WriteConsole("Enter teacher name of this group:");
         Teacher: string teacher = Console.ReadLine().Trim();
 
             if (string.IsNullOrEmpty(teacher))
@@ -51,7 +51,13 @@ namespace CourseApp.Controllers
                 goto Teacher;
             }
 
-            ConsoleColor.Cyan.WriteConsole("Enter room name of this group:");
+            if (teacher.Length < 3)
+            {
+                ConsoleColor.Red.WriteConsole("Name must contain at least 3 characters");
+                goto Teacher;
+            }
+
+            ConsoleColor.Yellow.WriteConsole("Enter room name of this group:");
         Room: string room = Console.ReadLine().Trim();
 
             if (string.IsNullOrEmpty(room))
@@ -59,6 +65,7 @@ namespace CourseApp.Controllers
                 ConsoleColor.Red.WriteConsole("Input can't be empty");
                 goto Room;
             }
+
             try
             {
                 _groupService.Create(new Domain.Models.Group { Name = name, Teacher = teacher, Room = room });
@@ -73,7 +80,7 @@ namespace CourseApp.Controllers
 
         public void Update()
         {
-            ConsoleColor.Cyan.WriteConsole("Enter id of the group you want to update:");
+            ConsoleColor.Yellow.WriteConsole("Enter id of the group you want to update:");
         Id: string idStr = Console.ReadLine();
 
             if (string.IsNullOrWhiteSpace(idStr))
@@ -103,22 +110,29 @@ namespace CourseApp.Controllers
                     return;
                 }
 
-                ConsoleColor.Cyan.WriteConsole("Enter name (Press Enter if you don't want to change):");
+                ConsoleColor.Yellow.WriteConsole("Enter name (Press Enter if you don't want to change):");
                 string updatedName = Console.ReadLine().Trim();
 
-                ConsoleColor.Cyan.WriteConsole("Enter teacher name of this group (Press Enter if you don't want to change):");
+                ConsoleColor.Yellow.WriteConsole("Enter teacher name of this group (Press Enter if you don't want to change):");
             Teacher: string updatedTeacher = Console.ReadLine().Trim();
 
                 if (!string.IsNullOrEmpty(updatedTeacher))
                 {
+
                     if (!Regex.IsMatch(updatedTeacher, @"^[\p{L}]+(?:\s[\p{L}]+)?$"))
                     {
                         ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidNameFormat);
                         goto Teacher;
                     }
+
+                    if (updatedTeacher.Length < 3)
+                    {
+                        ConsoleColor.Red.WriteConsole("Name must contain at least 3 characters");
+                        goto Teacher;
+                    }
                 }
 
-                ConsoleColor.Cyan.WriteConsole("Enter room name of this group (Press Enter if you don't want to change):");
+                ConsoleColor.Yellow.WriteConsole("Enter room name of this group (Press Enter if you don't want to change):");
                 string updatedRoom = Console.ReadLine().Trim();
 
                 try
@@ -136,7 +150,7 @@ namespace CourseApp.Controllers
 
         public void Delete()
         {
-            ConsoleColor.Cyan.WriteConsole("Enter id of the group you want to delete:");
+            ConsoleColor.Yellow.WriteConsole("Enter id of the group you want to delete:");
         Id: string idStr = Console.ReadLine();
 
             if (string.IsNullOrWhiteSpace(idStr))
@@ -164,35 +178,31 @@ namespace CourseApp.Controllers
                 {
                     var group = _groupService.GetById(id);
 
-                    if (group is not null)
+                    ConsoleColor.Yellow.WriteConsole("Are you sure you want to delete this group? Group and its students will be deleted (Press 'Y' for yes, 'N' for no)");
+                DeleteChoice: string deleteChoice = Console.ReadLine().Trim().ToLower();
+
+                    if (deleteChoice == "n")
                     {
-                        Print(group);
+                        return;
+                    }
+                    else if (deleteChoice == "y")
+                    {
+                        _groupService.Delete(id);
 
-                        Console.WriteLine("Are you sure you want to delete this group? Group and its students will be deleted (Press 'Y' for yes, 'N' for no)");
-                    DeleteChoice: string deleteChoice = Console.ReadLine().Trim().ToLower();
+                        List<Student> students = _studentService.GetAllWithExpression(m => m.Group.Id == id);
 
-                        if (deleteChoice == "n")
+                        foreach (var item in students)
                         {
-                            return;
+                            _studentService.Delete(item.Id);
                         }
-                        else if (deleteChoice == "y")
-                        {
-                            _groupService.Delete(id);
 
-                            List<Student> students = _studentService.GetAllWithExpression(m => m.Group.Id == id);
+                        ConsoleColor.Green.WriteConsole(ResponseMessages.DeleteSuccess);
 
-                            foreach (var item in students)
-                            {
-                                _studentService.Delete(item.Id);
-                            }
-
-                            ConsoleColor.Green.WriteConsole("Data successfully deleted");
-                        }
-                        else
-                        {
-                            ConsoleColor.Red.WriteConsole("Wrong operation. Please try again:");
-                            goto DeleteChoice;
-                        }
+                    }
+                    else
+                    {
+                        ConsoleColor.Red.WriteConsole("Wrong operation. Please try again:");
+                        goto DeleteChoice;
                     }
                 }
                 catch (Exception ex)
@@ -217,61 +227,56 @@ namespace CourseApp.Controllers
 
         public void GetAllByTeacher()
         {
-        Teacher: Console.WriteLine("Enter teacher name:");
+        Teacher: ConsoleColor.Yellow.WriteConsole("Enter teacher name:(Press Enter to cancel)");
 
             string teacher = Console.ReadLine().Trim().ToLower();
 
-            try
+            if (string.IsNullOrEmpty(teacher))
             {
-                var response = _groupService.GetAllWithExpression(m => m.Teacher.Trim().ToLower() == teacher);
-
-                if (response.Count == 0)
-                {
-                    ConsoleColor.Red.WriteConsole(ResponseMessages.DataNotFound);
-                    return;
-                }
-
-                PrintAll(response);
+                return;
             }
-            catch (Exception ex)
+
+            var response = _groupService.GetAllWithExpression(m => m.Teacher.ToLower() == teacher);
+
+            if (response.Count == 0)
             {
-                Console.WriteLine(ex.Message);
+                ConsoleColor.Red.WriteConsole(ResponseMessages.DataNotFound);
+                return;
             }
+
+            PrintAll(response);
         }
 
         public void GetAllByRoom()
         {
-            Console.WriteLine("Enter room name:");
+            ConsoleColor.Yellow.WriteConsole("Enter room name: (Press Enter to cancel)");
 
             string room = Console.ReadLine().Trim().ToLower();
 
-            try
+            if (string.IsNullOrEmpty(room))
             {
-                var response = _groupService.GetAllWithExpression(m => m.Room.Trim().ToLower() == room);
-
-                if (response.Count == 0)
-                {
-                    ConsoleColor.Red.WriteConsole(ResponseMessages.DataNotFound);
-                    return;
-                }
-
-                PrintAll(response);
+                return;
             }
-            catch (Exception ex)
+
+            var response = _groupService.GetAllWithExpression(m => m.Room.ToLower() == room);
+
+            if (response.Count == 0)
             {
-                Console.WriteLine(ex.Message);
+                ConsoleColor.Red.WriteConsole(ResponseMessages.DataNotFound);
+                return;
             }
+
+            PrintAll(response);
         }
 
         public void GetById()
         {
-            ConsoleColor.Cyan.WriteConsole("Enter id of the group:");
+            ConsoleColor.Yellow.WriteConsole("Enter id of the group: (Press Enter to cancel)");
         Id: string idStr = Console.ReadLine();
 
             if (string.IsNullOrWhiteSpace(idStr))
             {
-                ConsoleColor.Red.WriteConsole("Input can't be empty");
-                goto Id;
+                return;
             }
 
             int id;
@@ -301,13 +306,18 @@ namespace CourseApp.Controllers
 
         public void SearchByName()
         {
-            ConsoleColor.Cyan.WriteConsole("Enter search text:");
+            ConsoleColor.Yellow.WriteConsole("Enter search text: (Press Enter to cancel)");
 
             string searchText = Console.ReadLine().Trim().ToLower();
 
-            var response = _groupService.GetAllWithExpression(m => m.Name.Trim().ToLower().Contains(searchText));
+            if (string.IsNullOrEmpty(searchText))
+            {
+                return;
+            }
 
-            if (response.Count == 0 || string.IsNullOrWhiteSpace(searchText))
+            var response = _groupService.GetAllWithExpression(m => m.Name.ToLower().Contains(searchText));
+
+            if (response.Count == 0)
             {
                 ConsoleColor.Red.WriteConsole(ResponseMessages.DataNotFound);
                 return;
@@ -318,16 +328,31 @@ namespace CourseApp.Controllers
 
         private void Print(Domain.Models.Group group)
         {
-            ConsoleColor.Yellow.WriteConsole($"Id: {group.Id}, Name: {group.Name}, Teacher: {group.Teacher}, Room: {group.Room}");
+            Console.WriteLine();
 
+            var table = new ConsoleTable("Id", "Name", "Teacher", "Room");
+
+            table.AddRow(group.Id, group.Name, group.Teacher, group.Room);
+
+            table.Options.EnableCount = false;
+
+            table.Write();
         }
 
         private void PrintAll(List<Domain.Models.Group> groups)
         {
+            Console.WriteLine();
+
+            var table = new ConsoleTable("Id", "Name", "Teacher", "Room");
+
             foreach (var item in groups)
             {
-                Print(item);
+                table.AddRow(item.Id, item.Name, item.Teacher, item.Room);
             }
+
+            table.Options.EnableCount = false;
+
+            table.Write();
         }
     }
 }
