@@ -1,5 +1,4 @@
 ﻿using Domain.Common;
-using Domain.Models;
 using Repository.Data;
 using Repository.Repositories.Interfaces;
 

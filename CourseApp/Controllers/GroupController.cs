@@ -51,12 +51,6 @@ namespace CourseApp.Controllers
                 goto Teacher;
             }
 
-            if (teacher.Length < 3)
-            {
-                ConsoleColor.Red.WriteConsole("Name must contain at least 3 characters");
-                goto Teacher;
-            }
-
             ConsoleColor.Yellow.WriteConsole("Enter room name of this group:");
         Room: string room = Console.ReadLine().Trim();
 
@@ -118,16 +112,9 @@ namespace CourseApp.Controllers
 
                 if (!string.IsNullOrEmpty(updatedTeacher))
                 {
-
                     if (!Regex.IsMatch(updatedTeacher, @"^[\p{L}]+(?:\s[\p{L}]+)?$"))
                     {
                         ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidNameFormat);
-                        goto Teacher;
-                    }
-
-                    if (updatedTeacher.Length < 3)
-                    {
-                        ConsoleColor.Red.WriteConsole("Name must contain at least 3 characters");
                         goto Teacher;
                     }
                 }
@@ -330,9 +317,9 @@ namespace CourseApp.Controllers
         {
             Console.WriteLine();
 
-            var table = new ConsoleTable("Id", "Name", "Teacher", "Room");
+            var table = new ConsoleTable("Id", "Name", "Teacher", "Room", "Capacity");
 
-            table.AddRow(group.Id, group.Name, group.Teacher, group.Room);
+            table.AddRow(group.Id, group.Name, group.Teacher, group.Room, group.Capacity);
 
             table.Options.EnableCount = false;
 

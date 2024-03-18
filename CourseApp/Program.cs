@@ -130,34 +130,11 @@ Operation: ShowMenu();
 
 static void ShowMenu()
 {
-    //ConsoleColor.Cyan.WriteConsole("\nSelect one operation:\n\n" +
-    //    "1. Create group                               9. Create student\n" +
-    //    "2. Update group                              10. Update student\n" +
-    //    "3. Delete group                              11. Delete student\n" +
-    //    "4. Show all groups                           12. Show all students\n" +
-    //    "5. Show all groups by teacher                13. Show all students by age\n" +
-    //    "6. Show all groups by room                   14. Show all students by group id\n" +
-    //    "7. Show group by id                          15. Show student by id\n" +
-    //    "8. Search groups by name                     16. Search students by name or surname\n\n"+
-    //    "------------------------------------" + "------------------------------------------\n" +
-    //    "| Group opinion:                   |" + "Student opinion:                         |\n" +
-    //    "|---------------------------       |" + "-----------------------------------------|\n" +
-    //    "| 1. Create group                  |" + "9. Create student                        |\n" +
-    //    "| 2. Update group                  |" + "10. Update student                       |\n" +
-    //    "| 3. Delete group                  |" + "11. Delete student                       |\n" +
-    //    "| 4. Show all groups               |" + "12. Show all students                    |\n" +
-    //    "| 5. Show all groups by teacher    |" + "13. Show all students by age             |\n" +
-    //    "| 6. Show all groups by room       |" + "14. Show all students by group id        |\n" +
-    //    "| 7. Show group by id              |" + "15. Show student by id                   |\n" +
-    //    "| 8. Search groups by name         |" + "16. Search students by name or surname   |\n" +
-    //    "-----------------------------------------------------------------------------------\n" +
-    //    "0. Exit");
-
     ConsoleColor.Cyan.WriteConsole("\nSelect one operation:\n\n" +
         "+-----------------------------------" + "-----------------------------------------+\n" +
         "| Group operations                 |" + " Student operations                      |\n" +
         "|----------------------------------|" + "-----------------------------------------|\n" +
-        "| 1. Create group                  |" + " 9. Create student                       |\n" +
+        "| 1. Create group                  |" + "  9. Create student                      |\n" +
         "| 2. Update group                  |" + " 10. Update student                      |\n" +
         "| 3. Delete group                  |" + " 11. Delete student                      |\n" +
         "| 4. Show all groups               |" + " 12. Show all students                   |\n" +

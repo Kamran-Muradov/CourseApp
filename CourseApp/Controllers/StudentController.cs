@@ -2,11 +2,9 @@
 using Service.Services;
 using Service.Helpers.Extensions;
 using System.Text.RegularExpressions;
-using Service.Helpers.Exceptions;
 using Domain.Models;
 using Service.Helpers.Constants;
 using ConsoleTables;
-using System.Xml.Linq;
 
 namespace CourseApp.Controllers
 {
@@ -43,12 +41,6 @@ namespace CourseApp.Controllers
                 goto Name;
             }
 
-            if (name.Length < 3)
-            {
-                ConsoleColor.Red.WriteConsole("Name must contain at least 3 characters");
-                goto Name;
-            }
-
             ConsoleColor.Yellow.WriteConsole("Enter surname:");
         Surname: string surname = Console.ReadLine().Trim();
 
@@ -61,12 +53,6 @@ namespace CourseApp.Controllers
             if (!Regex.IsMatch(surname, @"^\p{L}{1,20}$"))
             {
                 ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidSurnameFormat);
-                goto Surname;
-            }
-
-            if (surname.Length < 3)
-            {
-                ConsoleColor.Red.WriteConsole("Surname must contain at least 3 characters");
                 goto Surname;
             }
 
@@ -93,12 +79,12 @@ namespace CourseApp.Controllers
             }
 
             ConsoleColor.Yellow.WriteConsole("Enter id of the group you want to add student:");
-        Id: string groupIdStr = Console.ReadLine();
+        GroupId: string groupIdStr = Console.ReadLine();
 
             if (string.IsNullOrWhiteSpace(groupIdStr))
             {
                 ConsoleColor.Red.WriteConsole("Input can't be empty");
-                goto Id;
+                goto GroupId;
             }
 
             int groupId;
@@ -106,24 +92,37 @@ namespace CourseApp.Controllers
             if (!int.TryParse(groupIdStr, out groupId))
             {
                 ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidIdFormat + ". Please try again:");
-                goto Id;
+                goto GroupId;
             }
             else if (groupId < 1)
             {
                 ConsoleColor.Red.WriteConsole("Id cannot be less than 1. Please try again:");
-                goto Id;
+                goto GroupId;
             }
 
-            var addedGroup = _groupService.GetById(groupId);
+            Domain.Models.Group addedGroup;
 
-            if (addedGroup is null)
+            try
+            {
+                addedGroup = _groupService.GetById(groupId);
+            }
+            catch (Exception)
             {
                 ConsoleColor.Red.WriteConsole("There is no group with specified id. Please try again:");
-                goto Id;
+                goto GroupId;
             }
 
             try
             {
+                addedGroup.Capacity++;
+
+                if (addedGroup.Capacity > 3)
+                {
+                    ConsoleColor.Red.WriteConsole("Group can have maximum 18 students. Please choose another group:");
+                    addedGroup.Capacity--;
+                    goto GroupId;
+                }
+
                 _studentService.Create(new Student() { Name = name, Surname = surname, Age = age, Group = addedGroup });
 
                 ConsoleColor.Green.WriteConsole("Data successfully added");
@@ -170,12 +169,6 @@ namespace CourseApp.Controllers
 
             if (!string.IsNullOrEmpty(updatedName))
             {
-                if (updatedName.Length < 3)
-                {
-                    ConsoleColor.Red.WriteConsole("Name must contain at least 3 characters");
-                    goto Name;
-                }
-
                 if (!Regex.IsMatch(updatedName, @"^\p{L}{1,20}$"))
                 {
                     ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidNameFormat);
@@ -188,11 +181,6 @@ namespace CourseApp.Controllers
 
             if (!string.IsNullOrEmpty(updatedSurname))
             {
-                if (updatedName.Length < 3)
-                {
-                    ConsoleColor.Red.WriteConsole("Surname must contain at least 3 characters");
-                    goto Surname;
-                }
                 if (!Regex.IsMatch(updatedSurname, @"^\p{L}{1,20}$"))
                 {
                     ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidSurnameFormat);
@@ -242,10 +230,11 @@ namespace CourseApp.Controllers
 
             if (groupId > 0)
             {
-
-                updatedGroup = _groupService.GetById(groupId);
-
-                if (updatedGroup is null)
+                try
+                {
+                    updatedGroup = _groupService.GetById(groupId);
+                }
+                catch (Exception)
                 {
                     ConsoleColor.Red.WriteConsole("There is no group with specified id. Please try again:");
                     goto GroupId;
@@ -254,6 +243,24 @@ namespace CourseApp.Controllers
 
             try
             {
+                if (updatedGroup is not null)
+                {
+                    updatedGroup.Capacity++;
+
+                    if (updatedGroup.Capacity > 3)
+                    {
+                        ConsoleColor.Red.WriteConsole("Group can have maximum 18 students. Please choose another group:");
+                        updatedGroup.Capacity--;
+                        goto GroupId;
+                    }
+                    else
+                    {
+                        var oldGroup = _studentService.GetById(id).Group;
+                        oldGroup.Capacity--;
+                    }
+
+                }
+
                 _studentService.Update(new() { Id = id, Name = updatedName, Surname = updatedSurname, Group = updatedGroup });
 
                 ConsoleColor.Green.WriteConsole(ResponseMessages.UpdateSuccess);
@@ -303,6 +310,9 @@ namespace CourseApp.Controllers
                 }
                 else if (deleteChoice == "y")
                 {
+                    var oldGroup = _studentService.GetById(id).Group;
+                    oldGroup.Capacity--;
+
                     _studentService.Delete(id);
 
                     ConsoleColor.Green.WriteConsole(ResponseMessages.DeleteSuccess);
@@ -465,9 +475,9 @@ namespace CourseApp.Controllers
         private void Print(Student student)
         {
             Console.WriteLine();
-            var table = new ConsoleTable("Id", "Name", "Surname", "Age", "Group id", "Group name");
+            var table = new ConsoleTable("Id", "Name", "Surname", "Age", "Group", "Teacher");
 
-            table.AddRow(student.Id, student.Name, student.Surname, student.Age, student.Group, student.Group.Name);
+            table.AddRow(student.Id, student.Name, student.Surname, student.Age, student.Group.Name, student.Group.Teacher);
 
             table.Options.EnableCount = false;
 
@@ -478,11 +488,11 @@ namespace CourseApp.Controllers
         {
             Console.WriteLine();
 
-            var table = new ConsoleTable("Id", "Name", "Surname", "Age", "Group id", "Group name");
+            var table = new ConsoleTable("Id", "Name", "Surname", "Age", "Group", "Teacher");
 
             foreach (var item in students)
             {
-                table.AddRow(item.Id, item.Name, item.Surname, item.Age, item.Group.Id, item.Group.Name);
+                table.AddRow(item.Id, item.Name, item.Surname, item.Age, item.Group.Name, item.Group.Teacher);
             }
 
             table.Options.EnableCount = false;
