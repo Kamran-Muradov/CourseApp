@@ -159,13 +159,12 @@ namespace CourseApp.Controllers
             ConsoleColor.Yellow.WriteConsole("Students:");
             students.PrintAll();
 
-            ConsoleColor.Yellow.WriteConsole("Enter id of the student you want to update:");
+            ConsoleColor.Yellow.WriteConsole("Enter id of the student you want to update: (Press Enter to cancel)");
         Id: string idStr = Console.ReadLine();
 
             if (string.IsNullOrWhiteSpace(idStr))
             {
-                ConsoleColor.Red.WriteConsole("Input can't be empty");
-                goto Id;
+                return;
             }
 
             int id;
@@ -215,7 +214,7 @@ namespace CourseApp.Controllers
             ConsoleColor.Yellow.WriteConsole("Enter age (Press Enter if you don't want to change):");
         Age: string ageStr = Console.ReadLine();
 
-            int updatedAge;
+            int updatedAge = 0;
 
             if (!string.IsNullOrWhiteSpace(ageStr))
             {
@@ -282,7 +281,7 @@ namespace CourseApp.Controllers
                         {
                             ConsoleColor.Red.WriteConsole("There is not any empty group. Please create a new one");
                             updatedGroup.StudentCount--;
-                            return;
+                            goto GroupId;
                         }
                         else
                         {
@@ -299,7 +298,7 @@ namespace CourseApp.Controllers
 
                 }
 
-                _studentService.Update(new() { Id = id, Name = updatedName, Surname = updatedSurname, Group = updatedGroup });
+                _studentService.Update(new() { Id = id, Name = updatedName, Surname = updatedSurname, Age = updatedAge, Group = updatedGroup });
 
                 ConsoleColor.Green.WriteConsole(ResponseMessages.UpdateSuccess);
             }
@@ -311,7 +310,7 @@ namespace CourseApp.Controllers
 
         public void Delete()
         {
-            var students= _studentService.GetAll();
+            var students = _studentService.GetAll();
 
             if (students.Count == 0)
             {

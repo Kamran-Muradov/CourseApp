@@ -82,13 +82,12 @@ namespace CourseApp.Controllers
             ConsoleColor.Yellow.WriteConsole("Groups:");
             _groupService.GetAll().PrintAll();
 
-            ConsoleColor.Yellow.WriteConsole("Enter id of the group you want to update:");
+            ConsoleColor.Yellow.WriteConsole("Enter id of the group you want to update: (Press Enter to cancel)");
         Id: string idStr = Console.ReadLine();
 
             if (string.IsNullOrWhiteSpace(idStr))
             {
-                ConsoleColor.Red.WriteConsole("Input can't be empty");
-                goto Id;
+               return;
             }
 
             int id;
