@@ -21,6 +21,7 @@ namespace Service.Services
             ArgumentNullException.ThrowIfNull(data);
 
             data.Id = count++;
+            data.Group.StudentCount++;
             _studentRepository.Create(data);
         }
 
@@ -45,8 +46,10 @@ namespace Service.Services
                 student.Age = data.Age;
             }
 
-            if (data.Group is not null)
+            if (data.Group is not null && data.Group.Id != student.Group.Id)
             {
+                student.Group.StudentCount--;
+                data.Group.StudentCount++;
                 student.Group = data.Group;
             }
 
@@ -59,6 +62,7 @@ namespace Service.Services
 
             Student student = _studentRepository.GetById((int)id) ?? throw new NotFoundException(ResponseMessages.DataNotFound);
 
+            student.Group.StudentCount--;
             _studentRepository.Delete(student);
         }
 
