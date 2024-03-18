@@ -20,13 +20,12 @@ namespace CourseApp.Controllers
 
         public void Create()
         {
-            ConsoleColor.Yellow.WriteConsole("Enter name:");
+            ConsoleColor.Yellow.WriteConsole("Enter name: (Press Enter to cancel)");
         Name: string name = Console.ReadLine().Trim();
 
             if (string.IsNullOrEmpty(name))
             {
-                ConsoleColor.Red.WriteConsole("Input can't be empty");
-                goto Name;
+                return;
             }
 
             if (_groupService.GetAll().Any(m => m.Name.ToLower() == name.ToLower()))
@@ -156,13 +155,12 @@ namespace CourseApp.Controllers
             ConsoleColor.Yellow.WriteConsole("Groups:");
             _groupService.GetAll().PrintAll();
 
-            ConsoleColor.Yellow.WriteConsole("Enter id of the group you want to delete:");
+            ConsoleColor.Yellow.WriteConsole("Enter id of the group you want to delete: (Press Enter to cancel)");
         Id: string idStr = Console.ReadLine();
 
             if (string.IsNullOrWhiteSpace(idStr))
             {
-                ConsoleColor.Red.WriteConsole("Input can't be empty");
-                goto Id;
+                return;
             }
 
             int id;

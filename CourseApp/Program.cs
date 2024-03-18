@@ -1,13 +1,10 @@
 ﻿
-using ConsoleTables;
 using CourseApp.Controllers;
-using Domain.Models;
-using Repository.Data;
 using Service.Helpers.Enums;
 using Service.Helpers.Extensions;
 using Spectre.Console;
 
-AnsiConsole.Render(
+AnsiConsole.Write(
     new FigletText("WELCOME")
         .Centered()
         .Color(Color.DarkOliveGreen1));

@@ -25,13 +25,12 @@ namespace CourseApp.Controllers
                 return;
             }
 
-            ConsoleColor.Yellow.WriteConsole("Enter name:");
+            ConsoleColor.Yellow.WriteConsole("Enter name: (Press Enter to cancel)");
         Name: string name = Console.ReadLine().Trim();
 
             if (string.IsNullOrEmpty(name))
             {
-                ConsoleColor.Red.WriteConsole("Input can't be empty");
-                goto Name;
+                return;
             }
 
             if (!Regex.IsMatch(name, @"^\p{L}{1,20}$"))
@@ -76,8 +75,10 @@ namespace CourseApp.Controllers
                 ConsoleColor.Red.WriteConsole("Age must be between 15 and 50. Please try again:");
                 goto Age;
             }
+
+            Console.WriteLine();
             var groups = _groupService.GetAll();
-            ConsoleColor.Yellow.WriteConsole("Groups");
+            ConsoleColor.Yellow.WriteConsole("Groups:");
             groups.PrintAll();
 
             ConsoleColor.Yellow.WriteConsole("Enter id of the group you want to add student:");
@@ -146,7 +147,9 @@ namespace CourseApp.Controllers
 
         public void Update()
         {
-            if (_studentService.GetAll().Count == 0)
+            var students = _studentService.GetAll();
+
+            if (students.Count == 0)
             {
                 ConsoleColor.Red.WriteConsole("There is not any student. Please create one");
                 return;
@@ -154,7 +157,7 @@ namespace CourseApp.Controllers
 
             Console.WriteLine();
             ConsoleColor.Yellow.WriteConsole("Students:");
-            _studentService.GetAll().PrintAll();
+            students.PrintAll();
 
             ConsoleColor.Yellow.WriteConsole("Enter id of the student you want to update:");
         Id: string idStr = Console.ReadLine();
@@ -227,8 +230,10 @@ namespace CourseApp.Controllers
                     goto Age;
                 }
             }
+
+            Console.WriteLine();
             var groups = _groupService.GetAll();
-            ConsoleColor.Yellow.WriteConsole("Groups");
+            ConsoleColor.Yellow.WriteConsole("Groups:");
             groups.PrintAll();
 
             ConsoleColor.Yellow.WriteConsole("Enter group id you want to switch (Press Enter if you don't want to change):");
@@ -306,8 +311,9 @@ namespace CourseApp.Controllers
 
         public void Delete()
         {
+            var students= _studentService.GetAll();
 
-            if (_studentService.GetAll().Count == 0)
+            if (students.Count == 0)
             {
                 ConsoleColor.Red.WriteConsole("There is not any student. Please create one");
                 return;
@@ -315,15 +321,14 @@ namespace CourseApp.Controllers
 
             Console.WriteLine();
             ConsoleColor.Yellow.WriteConsole("Students:");
-            _studentService.GetAll().PrintAll();
+            students.PrintAll();
 
-            ConsoleColor.Yellow.WriteConsole("Enter id of the student you want to delete:");
+            ConsoleColor.Yellow.WriteConsole("Enter id of the student you want to delete: (Press Enter to cancel)");
         Id: string idStr = Console.ReadLine();
 
             if (string.IsNullOrWhiteSpace(idStr))
             {
-                ConsoleColor.Red.WriteConsole("Input can't be empty");
-                goto Id;
+                return;
             }
 
             int id;
@@ -411,9 +416,9 @@ namespace CourseApp.Controllers
                 goto Age;
             }
 
-            else if (age < 15 || age > 50)
+            else if (age < 1)
             {
-                ConsoleColor.Red.WriteConsole("Age must be between 15 and 50. Please try again:");
+                ConsoleColor.Red.WriteConsole("Age must be between greater than 0. Please try again:");
                 goto Age;
             }
 
@@ -528,7 +533,7 @@ namespace CourseApp.Controllers
                 return;
             }
 
-            var response = _studentService.GetAllWithExpression(m => m.Name.ToLower().Contains(searchText) || m.Surname.Trim().ToLower().Contains(searchText));
+            var response = _studentService.GetAllWithExpression(m => m.Name.ToLower().Contains(searchText) || m.Surname.ToLower().Contains(searchText));
 
             if (response.Count == 0)
             {
