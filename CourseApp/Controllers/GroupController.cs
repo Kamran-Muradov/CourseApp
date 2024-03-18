@@ -209,7 +209,7 @@ namespace CourseApp.Controllers
                 return;
             }
 
-            PrintAll(response);
+            response.PrintAll();
         }
 
         public void GetAllByTeacher()
@@ -231,7 +231,7 @@ namespace CourseApp.Controllers
                 return;
             }
 
-            PrintAll(response);
+            response.PrintAll();
         }
 
         public void GetAllByRoom()
@@ -253,7 +253,7 @@ namespace CourseApp.Controllers
                 return;
             }
 
-            PrintAll(response);
+            response.PrintAll();
         }
 
         public void GetById()
@@ -283,7 +283,7 @@ namespace CourseApp.Controllers
             {
                 var response = _groupService.GetById(id);
 
-                Print(response);
+                response.Print();
             }
             catch (Exception ex)
             {
@@ -310,36 +310,7 @@ namespace CourseApp.Controllers
                 return;
             }
 
-            PrintAll(response);
-        }
-
-        private void Print(Domain.Models.Group group)
-        {
-            Console.WriteLine();
-
-            var table = new ConsoleTable("Id", "Name", "Teacher", "Room", "Capacity");
-
-            table.AddRow(group.Id, group.Name, group.Teacher, group.Room, group.Capacity);
-
-            table.Options.EnableCount = false;
-
-            table.Write();
-        }
-
-        private void PrintAll(List<Domain.Models.Group> groups)
-        {
-            Console.WriteLine();
-
-            var table = new ConsoleTable("Id", "Name", "Teacher", "Room");
-
-            foreach (var item in groups)
-            {
-                table.AddRow(item.Id, item.Name, item.Teacher, item.Room);
-            }
-
-            table.Options.EnableCount = false;
-
-            table.Write();
+            response.PrintAll();
         }
     }
 }

@@ -72,11 +72,13 @@ namespace CourseApp.Controllers
                 ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidAgeFormat + ". Please try again:");
                 goto Age;
             }
-            else if (age < 1)
+            else if (age < 15 || age > 50)
             {
-                ConsoleColor.Red.WriteConsole("Age cannot be less than 1. Please try again:");
+                ConsoleColor.Red.WriteConsole("Age must be between 15 and 50. Please try again:");
                 goto Age;
             }
+
+            _groupService.GetAll().PrintAll();
 
             ConsoleColor.Yellow.WriteConsole("Enter id of the group you want to add student:");
         GroupId: string groupIdStr = Console.ReadLine();
@@ -114,13 +116,22 @@ namespace CourseApp.Controllers
 
             try
             {
-                addedGroup.Capacity++;
+                addedGroup.StudentCount++;
 
-                if (addedGroup.Capacity > 3)
+                if (addedGroup.StudentCount > 3)
                 {
-                    ConsoleColor.Red.WriteConsole("Group can have maximum 18 students. Please choose another group:");
-                    addedGroup.Capacity--;
-                    goto GroupId;
+                    if (_groupService.GetAll().Count == 1)
+                    {
+                        ConsoleColor.Red.WriteConsole("No group available. Please create a group");
+                        addedGroup.StudentCount--;
+                        return;
+                    }
+                    else
+                    {
+                        ConsoleColor.Red.WriteConsole("Group can have maximum 18 students. Please choose another group:");
+                        addedGroup.StudentCount--;
+                        goto GroupId;
+                    }
                 }
 
                 _studentService.Create(new Student() { Name = name, Surname = surname, Age = age, Group = addedGroup });
@@ -200,12 +211,13 @@ namespace CourseApp.Controllers
                     ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidAgeFormat + ". Please try again:");
                     goto Age;
                 }
-                else if (updatedAge < 1)
+                else if (updatedAge < 15 || updatedAge > 50)
                 {
-                    ConsoleColor.Red.WriteConsole("Age cannot be less than 1. Please try again:");
+                    ConsoleColor.Red.WriteConsole("Age must be between 15 and 50. Please try again:");
                     goto Age;
                 }
             }
+            _groupService.GetAll().PrintAll();
 
             ConsoleColor.Yellow.WriteConsole("Enter group id you want to switch (Press Enter if you don't want to change):");
         GroupId: string groupIdStr = Console.ReadLine();
@@ -245,18 +257,27 @@ namespace CourseApp.Controllers
             {
                 if (updatedGroup is not null)
                 {
-                    updatedGroup.Capacity++;
+                    updatedGroup.StudentCount++;
 
-                    if (updatedGroup.Capacity > 3)
+                    if (updatedGroup.StudentCount > 3)
                     {
-                        ConsoleColor.Red.WriteConsole("Group can have maximum 18 students. Please choose another group:");
-                        updatedGroup.Capacity--;
-                        goto GroupId;
+                        if (_groupService.GetAll().Count == 1)
+                        {
+                            ConsoleColor.Red.WriteConsole("No group available. Please create a group");
+                            updatedGroup.StudentCount--;
+                            return;
+                        }
+                        else
+                        {
+                            ConsoleColor.Red.WriteConsole("Group can have maximum 18 students. Please choose another group:");
+                            updatedGroup.StudentCount--;
+                            goto GroupId;
+                        }
                     }
                     else
                     {
                         var oldGroup = _studentService.GetById(id).Group;
-                        oldGroup.Capacity--;
+                        oldGroup.StudentCount--;
                     }
 
                 }
@@ -311,7 +332,7 @@ namespace CourseApp.Controllers
                 else if (deleteChoice == "y")
                 {
                     var oldGroup = _studentService.GetById(id).Group;
-                    oldGroup.Capacity--;
+                    oldGroup.StudentCount--;
 
                     _studentService.Delete(id);
 
@@ -339,7 +360,7 @@ namespace CourseApp.Controllers
                 return;
             }
 
-            PrintAll(response);
+            response.PrintAll();
         }
 
         public void GetAllByAge()
@@ -376,7 +397,7 @@ namespace CourseApp.Controllers
                 return;
             }
 
-            PrintAll(foundStudents);
+            foundStudents.PrintAll();
         }
 
         public void GetAllByGroupId()
@@ -413,7 +434,7 @@ namespace CourseApp.Controllers
                 return;
             }
 
-            PrintAll(foundStudents);
+            foundStudents.PrintAll();
         }
 
         public void GetById()
@@ -443,7 +464,7 @@ namespace CourseApp.Controllers
             {
                 var response = _studentService.GetById(id);
 
-                Print(response);
+                response.Print();
             }
             catch (Exception ex)
             {
@@ -469,35 +490,7 @@ namespace CourseApp.Controllers
                 return;
             }
 
-            PrintAll(response);
-        }
-
-        private void Print(Student student)
-        {
-            Console.WriteLine();
-            var table = new ConsoleTable("Id", "Name", "Surname", "Age", "Group", "Teacher");
-
-            table.AddRow(student.Id, student.Name, student.Surname, student.Age, student.Group.Name, student.Group.Teacher);
-
-            table.Options.EnableCount = false;
-
-            table.Write();
-        }
-
-        private void PrintAll(List<Student> students)
-        {
-            Console.WriteLine();
-
-            var table = new ConsoleTable("Id", "Name", "Surname", "Age", "Group", "Teacher");
-
-            foreach (var item in students)
-            {
-                table.AddRow(item.Id, item.Name, item.Surname, item.Age, item.Group.Name, item.Group.Teacher);
-            }
-
-            table.Options.EnableCount = false;
-
-            table.Write();
+            response.PrintAll();
         }
     }
 }
