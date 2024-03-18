@@ -5,8 +5,6 @@ using Domain.Models;
 using Repository.Data;
 using Service.Helpers.Enums;
 using Service.Helpers.Extensions;
-using Service.Services;
-using Service.Services.Interfaces;
 using Spectre.Console;
 
 AnsiConsole.Render(
