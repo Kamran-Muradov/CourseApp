@@ -1,5 +1,4 @@
-﻿using ConsoleTables;
-using Domain.Models;
+﻿using Domain.Models;
 using Service.Helpers.Constants;
 using Service.Helpers.Extensions;
 using Service.Services;
@@ -74,6 +73,16 @@ namespace CourseApp.Controllers
 
         public void Update()
         {
+            if (_groupService.GetAll().Count == 0)
+            {
+                ConsoleColor.Red.WriteConsole("There is not any group. Please create one");
+                return;
+            }
+
+            Console.WriteLine();
+            ConsoleColor.Yellow.WriteConsole("Groups:");
+            _groupService.GetAll().PrintAll();
+
             ConsoleColor.Yellow.WriteConsole("Enter id of the group you want to update:");
         Id: string idStr = Console.ReadLine();
 
@@ -137,6 +146,16 @@ namespace CourseApp.Controllers
 
         public void Delete()
         {
+            if (_groupService.GetAll().Count == 0)
+            {
+                ConsoleColor.Red.WriteConsole("There is not any group. Please create one");
+                return;
+            }
+
+            Console.WriteLine();
+            ConsoleColor.Yellow.WriteConsole("Groups:");
+            _groupService.GetAll().PrintAll();
+
             ConsoleColor.Yellow.WriteConsole("Enter id of the group you want to delete:");
         Id: string idStr = Console.ReadLine();
 
@@ -214,6 +233,12 @@ namespace CourseApp.Controllers
 
         public void GetAllByTeacher()
         {
+            if (_groupService.GetAll().Count == 0)
+            {
+                ConsoleColor.Red.WriteConsole("There is not any group. Please create one");
+                return;
+            }
+
         Teacher: ConsoleColor.Yellow.WriteConsole("Enter teacher name:(Press Enter to cancel)");
 
             string teacher = Console.ReadLine().Trim().ToLower();
@@ -236,6 +261,12 @@ namespace CourseApp.Controllers
 
         public void GetAllByRoom()
         {
+            if (_groupService.GetAll().Count == 0)
+            {
+                ConsoleColor.Red.WriteConsole("There is not any group. Please create one");
+                return;
+            }
+
             ConsoleColor.Yellow.WriteConsole("Enter room name: (Press Enter to cancel)");
 
             string room = Console.ReadLine().Trim().ToLower();
@@ -258,6 +289,12 @@ namespace CourseApp.Controllers
 
         public void GetById()
         {
+            if (_groupService.GetAll().Count == 0)
+            {
+                ConsoleColor.Red.WriteConsole("There is not any group. Please create one");
+                return;
+            }
+
             ConsoleColor.Yellow.WriteConsole("Enter id of the group: (Press Enter to cancel)");
         Id: string idStr = Console.ReadLine();
 
@@ -293,6 +330,12 @@ namespace CourseApp.Controllers
 
         public void SearchByName()
         {
+            if (_groupService.GetAll().Count == 0)
+            {
+                ConsoleColor.Red.WriteConsole("There is not any group. Please create one");
+                return;
+            }
+
             ConsoleColor.Yellow.WriteConsole("Enter search text: (Press Enter to cancel)");
 
             string searchText = Console.ReadLine().Trim().ToLower();

@@ -4,7 +4,6 @@ using Service.Helpers.Extensions;
 using System.Text.RegularExpressions;
 using Domain.Models;
 using Service.Helpers.Constants;
-using ConsoleTables;
 
 namespace CourseApp.Controllers
 {
@@ -77,8 +76,9 @@ namespace CourseApp.Controllers
                 ConsoleColor.Red.WriteConsole("Age must be between 15 and 50. Please try again:");
                 goto Age;
             }
-
-            _groupService.GetAll().PrintAll();
+            var groups = _groupService.GetAll();
+            ConsoleColor.Yellow.WriteConsole("Groups");
+            groups.PrintAll();
 
             ConsoleColor.Yellow.WriteConsole("Enter id of the group you want to add student:");
         GroupId: string groupIdStr = Console.ReadLine();
@@ -120,15 +120,15 @@ namespace CourseApp.Controllers
 
                 if (addedGroup.StudentCount > 3)
                 {
-                    if (_groupService.GetAll().Count == 1)
+                    if (groups.All(m => m.StudentCount >= 3))
                     {
-                        ConsoleColor.Red.WriteConsole("No group available. Please create a group");
+                        ConsoleColor.Red.WriteConsole("There is not any empty group. Please create a new one");
                         addedGroup.StudentCount--;
                         return;
                     }
                     else
                     {
-                        ConsoleColor.Red.WriteConsole("Group can have maximum 18 students. Please choose another group:");
+                        ConsoleColor.Red.WriteConsole("Group can have maximum 3 students. Please choose another group:");
                         addedGroup.StudentCount--;
                         goto GroupId;
                     }
@@ -146,6 +146,16 @@ namespace CourseApp.Controllers
 
         public void Update()
         {
+            if (_studentService.GetAll().Count == 0)
+            {
+                ConsoleColor.Red.WriteConsole("There is not any student. Please create one");
+                return;
+            }
+
+            Console.WriteLine();
+            ConsoleColor.Yellow.WriteConsole("Students:");
+            _studentService.GetAll().PrintAll();
+
             ConsoleColor.Yellow.WriteConsole("Enter id of the student you want to update:");
         Id: string idStr = Console.ReadLine();
 
@@ -217,7 +227,9 @@ namespace CourseApp.Controllers
                     goto Age;
                 }
             }
-            _groupService.GetAll().PrintAll();
+            var groups = _groupService.GetAll();
+            ConsoleColor.Yellow.WriteConsole("Groups");
+            groups.PrintAll();
 
             ConsoleColor.Yellow.WriteConsole("Enter group id you want to switch (Press Enter if you don't want to change):");
         GroupId: string groupIdStr = Console.ReadLine();
@@ -261,15 +273,15 @@ namespace CourseApp.Controllers
 
                     if (updatedGroup.StudentCount > 3)
                     {
-                        if (_groupService.GetAll().Count == 1)
+                        if (groups.All(m => m.StudentCount >= 3))
                         {
-                            ConsoleColor.Red.WriteConsole("No group available. Please create a group");
+                            ConsoleColor.Red.WriteConsole("There is not any empty group. Please create a new one");
                             updatedGroup.StudentCount--;
                             return;
                         }
                         else
                         {
-                            ConsoleColor.Red.WriteConsole("Group can have maximum 18 students. Please choose another group:");
+                            ConsoleColor.Red.WriteConsole("Group can have maximum 3 students. Please choose another group:");
                             updatedGroup.StudentCount--;
                             goto GroupId;
                         }
@@ -294,6 +306,17 @@ namespace CourseApp.Controllers
 
         public void Delete()
         {
+
+            if (_studentService.GetAll().Count == 0)
+            {
+                ConsoleColor.Red.WriteConsole("There is not any student. Please create one");
+                return;
+            }
+
+            Console.WriteLine();
+            ConsoleColor.Yellow.WriteConsole("Students:");
+            _studentService.GetAll().PrintAll();
+
             ConsoleColor.Yellow.WriteConsole("Enter id of the student you want to delete:");
         Id: string idStr = Console.ReadLine();
 
@@ -365,6 +388,12 @@ namespace CourseApp.Controllers
 
         public void GetAllByAge()
         {
+            if (_studentService.GetAll().Count == 0)
+            {
+                ConsoleColor.Red.WriteConsole("There is not any student. Please create one");
+                return;
+            }
+
             ConsoleColor.Yellow.WriteConsole("Enter age: (Press Enter to cancel)");
 
         Age: string ageStr = Console.ReadLine();
@@ -382,10 +411,9 @@ namespace CourseApp.Controllers
                 goto Age;
             }
 
-            else if (age < 1)
+            else if (age < 15 || age > 50)
             {
-
-                ConsoleColor.Red.WriteConsole("Age cannot be less than 1. Please try again:");
+                ConsoleColor.Red.WriteConsole("Age must be between 15 and 50. Please try again:");
                 goto Age;
             }
 
@@ -402,6 +430,12 @@ namespace CourseApp.Controllers
 
         public void GetAllByGroupId()
         {
+            if (_studentService.GetAll().Count == 0)
+            {
+                ConsoleColor.Red.WriteConsole("There is not any student. Please create one");
+                return;
+            }
+
             ConsoleColor.Yellow.WriteConsole("Enter group id: (Press Enter to cancel)");
 
         Age: string groupIdStr = Console.ReadLine();
@@ -439,6 +473,12 @@ namespace CourseApp.Controllers
 
         public void GetById()
         {
+            if (_studentService.GetAll().Count == 0)
+            {
+                ConsoleColor.Red.WriteConsole("There is not any student. Please create one");
+                return;
+            }
+
             ConsoleColor.Yellow.WriteConsole("Enter id of the student: (Press Enter to cancel)");
         Id: string idStr = Console.ReadLine();
 
@@ -474,6 +514,12 @@ namespace CourseApp.Controllers
 
         public void SearchByNameOrSurname()
         {
+            if (_studentService.GetAll().Count == 0)
+            {
+                ConsoleColor.Red.WriteConsole("There is not any student. Please create one");
+                return;
+            }
+
             ConsoleColor.Yellow.WriteConsole("Enter search text: (Press Enter to cancel)");
             string searchText = Console.ReadLine().Trim().ToLower();
 
