@@ -10,7 +10,7 @@ namespace Service.Services
     public class StudentService : IStudentService
     {
         private readonly IStudentRepository _studentRepository;
-        private int count = 1;
+        private int _count = 1;
 
         public StudentService()
         {
@@ -20,8 +20,11 @@ namespace Service.Services
         {
             ArgumentNullException.ThrowIfNull(data);
 
-            data.Id = count++;
+            data.Id = _count++;
+            data.Group.StudentCount++;
+            data.Group.Students.Add(data);
             _studentRepository.Create(data);
+
         }
 
         public void Update(Student data)
@@ -45,8 +48,10 @@ namespace Service.Services
                 student.Age = data.Age;
             }
 
-            if (data.Group is not null)
+            if (data.Group is not null && data.Group.Id != student.Group.Id)
             {
+                student.Group.StudentCount--;
+                data.Group.StudentCount++;
                 student.Group = data.Group;
             }
 
@@ -59,6 +64,7 @@ namespace Service.Services
 
             Student student = _studentRepository.GetById((int)id) ?? throw new NotFoundException(ResponseMessages.DataNotFound);
 
+            student.Group.StudentCount--;
             _studentRepository.Delete(student);
         }
 

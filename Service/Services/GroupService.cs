@@ -10,7 +10,7 @@ namespace Service.Services
     public class GroupService : IGroupService
     {
         private readonly IGroupRepository _groupRepository;
-        private int count = 1;
+        private int _count = 1;
 
         public GroupService()
         {
@@ -21,7 +21,7 @@ namespace Service.Services
         {
             ArgumentNullException.ThrowIfNull(data);
 
-            data.Id = count++;
+            data.Id = _count++;
             _groupRepository.Create(data);
         }
 

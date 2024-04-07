@@ -19,9 +19,17 @@ namespace CourseApp.Controllers
         }
         public void Create()
         {
-            if (_groupService.GetAll().Count == 0)
+            var groups = _groupService.GetAll();
+
+            if (groups.Count == 0)
             {
                 ConsoleColor.Red.WriteConsole("You can't create student without any group. Please create a group first");
+                return;
+            }
+
+            if (groups.All(m => m.StudentCount == 3))
+            {
+                ConsoleColor.Red.WriteConsole("There is not any empty group. Please create a new one");
                 return;
             }
 
@@ -70,14 +78,14 @@ namespace CourseApp.Controllers
                 ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidAgeFormat + ". Please try again:");
                 goto Age;
             }
-            else if (age < 15 || age > 50)
+
+            if (age < 15 || age > 50)
             {
                 ConsoleColor.Red.WriteConsole("Age must be between 15 and 50. Please try again:");
                 goto Age;
             }
 
             Console.WriteLine();
-            var groups = _groupService.GetAll();
             ConsoleColor.Yellow.WriteConsole("Groups:");
             groups.PrintAll();
 
@@ -97,7 +105,8 @@ namespace CourseApp.Controllers
                 ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidIdFormat + ". Please try again:");
                 goto GroupId;
             }
-            else if (groupId < 1)
+
+            if (groupId < 1)
             {
                 ConsoleColor.Red.WriteConsole("Id cannot be less than 1. Please try again:");
                 goto GroupId;
@@ -117,22 +126,10 @@ namespace CourseApp.Controllers
 
             try
             {
-                addedGroup.StudentCount++;
-
-                if (addedGroup.StudentCount > 3)
+                if (addedGroup.StudentCount == 3)
                 {
-                    if (groups.All(m => m.StudentCount >= 3))
-                    {
-                        ConsoleColor.Red.WriteConsole("There is not any empty group. Please create a new one");
-                        addedGroup.StudentCount--;
-                        return;
-                    }
-                    else
-                    {
-                        ConsoleColor.Red.WriteConsole("Group can have maximum 3 students. Please choose another group:");
-                        addedGroup.StudentCount--;
-                        goto GroupId;
-                    }
+                    ConsoleColor.Red.WriteConsole("Group can have maximum 3 students. Please choose another group:");
+                    goto GroupId;
                 }
 
                 _studentService.Create(new Student() { Name = name, Surname = surname, Age = age, Group = addedGroup });
@@ -223,7 +220,8 @@ namespace CourseApp.Controllers
                     ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidAgeFormat + ". Please try again:");
                     goto Age;
                 }
-                else if (updatedAge < 15 || updatedAge > 50)
+
+                if (updatedAge < 15 || updatedAge > 50)
                 {
                     ConsoleColor.Red.WriteConsole("Age must be between 15 and 50. Please try again:");
                     goto Age;
@@ -247,7 +245,8 @@ namespace CourseApp.Controllers
                     ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidIdFormat + ". Please try again:");
                     goto GroupId;
                 }
-                else if (groupId < 1)
+
+                if (groupId < 1)
                 {
                     ConsoleColor.Red.WriteConsole("Id cannot be less than 1. Please try again:");
                     goto GroupId;
@@ -273,29 +272,19 @@ namespace CourseApp.Controllers
             {
                 if (updatedGroup is not null)
                 {
-                    updatedGroup.StudentCount++;
-
-                    if (updatedGroup.StudentCount > 3)
+                    if (updatedGroup.StudentCount == 3 && updatedGroup.Id != _studentService.GetById(id).Group.Id)
                     {
-                        if (groups.All(m => m.StudentCount >= 3))
+                        if (groups.All(m => m.StudentCount == 3))
                         {
                             ConsoleColor.Red.WriteConsole("There is not any empty group. Please create a new one");
-                            updatedGroup.StudentCount--;
                             goto GroupId;
                         }
                         else
                         {
                             ConsoleColor.Red.WriteConsole("Group can have maximum 3 students. Please choose another group:");
-                            updatedGroup.StudentCount--;
                             goto GroupId;
                         }
                     }
-                    else
-                    {
-                        var oldGroup = _studentService.GetById(id).Group;
-                        oldGroup.StudentCount--;
-                    }
-
                 }
 
                 _studentService.Update(new() { Id = id, Name = updatedName, Surname = updatedSurname, Age = updatedAge, Group = updatedGroup });
@@ -338,42 +327,45 @@ namespace CourseApp.Controllers
                 goto Id;
             }
 
-            else if (id < 1)
+            if (id < 1)
             {
 
                 ConsoleColor.Red.WriteConsole("Id cannot be less than 1. Please try again:");
                 goto Id;
             }
 
-            try
+
+            if (_studentService.GetAll().All(m => m.Id != id))
             {
-                var student = _studentService.GetById(id);
+                ConsoleColor.Red.WriteConsole(ResponseMessages.DataNotFound);
+                return;
+            }
 
-                Console.WriteLine("Are you sure you want to delete this student? (Press 'Y' for yes, 'N' for no)");
-            DeleteChoice: string deleteChoice = Console.ReadLine().Trim().ToLower();
+            Console.WriteLine("Are you sure you want to delete this student? (Press 'Y' for yes, 'N' for no)");
+        DeleteChoice: string deleteChoice = Console.ReadLine().Trim().ToLower();
 
-                if (deleteChoice == "n")
+            if (deleteChoice == "n")
+            {
+                return;
+            }
+
+            if (deleteChoice == "y")
+            {
+                try
                 {
-                    return;
-                }
-                else if (deleteChoice == "y")
-                {
-                    var oldGroup = _studentService.GetById(id).Group;
-                    oldGroup.StudentCount--;
-
                     _studentService.Delete(id);
 
                     ConsoleColor.Green.WriteConsole(ResponseMessages.DeleteSuccess);
                 }
-                else
+                catch (Exception ex)
                 {
-                    ConsoleColor.Red.WriteConsole("Wrong operation. Please try again");
-                    goto DeleteChoice;
+                    ConsoleColor.Red.WriteConsole(ex.Message);
                 }
             }
-            catch (Exception ex)
+            else
             {
-                ConsoleColor.Red.WriteConsole(ex.Message);
+                ConsoleColor.Red.WriteConsole("Wrong operation. Please try again");
+                goto DeleteChoice;
             }
         }
 

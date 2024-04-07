@@ -97,48 +97,46 @@ namespace CourseApp.Controllers
                 ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidIdFormat + ". Please try again:");
                 goto Id;
             }
-            else
+
+            if (id < 1)
             {
-                if (id < 1)
-                {
-                    ConsoleColor.Red.WriteConsole("Id cannot be less than 1. Please try again:");
-                    goto Id;
-                }
+                ConsoleColor.Red.WriteConsole("Id cannot be less than 1. Please try again:");
+                goto Id;
+            }
 
-                if (!_groupService.GetAll().Any(m => m.Id == id))
-                {
-                    ConsoleColor.Red.WriteConsole(ResponseMessages.DataNotFound);
-                    return;
-                }
+            if (_groupService.GetAll().All(m => m.Id != id))
+            {
+                ConsoleColor.Red.WriteConsole(ResponseMessages.DataNotFound);
+                return;
+            }
 
-                ConsoleColor.Yellow.WriteConsole("Enter name (Press Enter if you don't want to change):");
-                string updatedName = Console.ReadLine().Trim();
+            ConsoleColor.Yellow.WriteConsole("Enter name (Press Enter if you don't want to change):");
+            string updatedName = Console.ReadLine().Trim();
 
-                ConsoleColor.Yellow.WriteConsole("Enter teacher name of this group (Press Enter if you don't want to change):");
+            ConsoleColor.Yellow.WriteConsole("Enter teacher name of this group (Press Enter if you don't want to change):");
             Teacher: string updatedTeacher = Console.ReadLine().Trim();
 
-                if (!string.IsNullOrEmpty(updatedTeacher))
+            if (!string.IsNullOrEmpty(updatedTeacher))
+            {
+                if (!Regex.IsMatch(updatedTeacher, @"^[\p{L}]+(?:\s[\p{L}]+)?$"))
                 {
-                    if (!Regex.IsMatch(updatedTeacher, @"^[\p{L}]+(?:\s[\p{L}]+)?$"))
-                    {
-                        ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidNameFormat);
-                        goto Teacher;
-                    }
+                    ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidNameFormat);
+                    goto Teacher;
                 }
+            }
 
-                ConsoleColor.Yellow.WriteConsole("Enter room name of this group (Press Enter if you don't want to change):");
-                string updatedRoom = Console.ReadLine().Trim();
+            ConsoleColor.Yellow.WriteConsole("Enter room name of this group (Press Enter if you don't want to change):");
+            string updatedRoom = Console.ReadLine().Trim();
 
-                try
-                {
-                    _groupService.Update(new() { Id = id, Name = updatedName, Teacher = updatedTeacher, Room = updatedRoom });
+            try
+            {
+                _groupService.Update(new() { Id = id, Name = updatedName, Teacher = updatedTeacher, Room = updatedRoom });
 
-                    ConsoleColor.Green.WriteConsole(ResponseMessages.UpdateSuccess);
-                }
-                catch (Exception ex)
-                {
-                    ConsoleColor.Red.WriteConsole(ex.Message);
-                }
+                ConsoleColor.Green.WriteConsole(ResponseMessages.UpdateSuccess);
+            }
+            catch (Exception ex)
+            {
+                ConsoleColor.Red.WriteConsole(ex.Message);
             }
         }
 
@@ -169,26 +167,25 @@ namespace CourseApp.Controllers
                 ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidIdFormat + ". Please try again:");
                 goto Id;
             }
-            else
+
+            if (id < 1)
             {
-                if (id < 1)
-                {
-                    ConsoleColor.Red.WriteConsole("Id cannot be less than 1. Please try again:");
-                    goto Id;
-                }
+                ConsoleColor.Red.WriteConsole("Id cannot be less than 1. Please try again:");
+                goto Id;
+            }
 
-                try
-                {
-                    var group = _groupService.GetById(id);
+            try
+            {
+                var group = _groupService.GetById(id);
 
-                    ConsoleColor.Yellow.WriteConsole("Are you sure you want to delete this group? Group and its students will be deleted (Press 'Y' for yes, 'N' for no)");
+                ConsoleColor.Yellow.WriteConsole("Are you sure you want to delete this group? Group and its students will be deleted (Press 'Y' for yes, 'N' for no)");
                 DeleteChoice: string deleteChoice = Console.ReadLine().Trim().ToLower();
 
-                    if (deleteChoice == "n")
-                    {
+                switch (deleteChoice)
+                {
+                    case "n":
                         return;
-                    }
-                    else if (deleteChoice == "y")
+                    case "y":
                     {
                         _groupService.Delete(id);
 
@@ -200,18 +197,17 @@ namespace CourseApp.Controllers
                         }
 
                         ConsoleColor.Green.WriteConsole(ResponseMessages.DeleteSuccess);
-
+                        break;
                     }
-                    else
-                    {
+                    default:
                         ConsoleColor.Red.WriteConsole("Wrong operation. Please try again:");
                         goto DeleteChoice;
-                    }
                 }
-                catch (Exception ex)
-                {
-                    ConsoleColor.Red.WriteConsole(ex.Message);
-                }
+            }
+            catch (Exception ex)
+            {
+                ConsoleColor.Red.WriteConsole(ex.Message);
+                goto Id;
             }
         }
 
@@ -307,7 +303,8 @@ namespace CourseApp.Controllers
                 ConsoleColor.Red.WriteConsole(ResponseMessages.InvalidIdFormat + ". Please try again:");
                 goto Id;
             }
-            else if (id < 1)
+
+            if (id < 1)
             {
                 ConsoleColor.Red.WriteConsole("Id cannot be less than 1. Please try again:");
                 goto Id;
