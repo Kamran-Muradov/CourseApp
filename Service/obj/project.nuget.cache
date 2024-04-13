@@ -1,13 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "XBxT15aWIpCgoDZ2xqS55MTVkb0DYivAMlyMEp0Ps3DN90Z8X/kgW0yIiTxqRh5TRBcfDS5a1mcjQoP4BcT+dQ==",
+  "dgSpecHash": "qLdSMq+WfvKjkQexP8ui4Re53RmnOK0V5G2+c6ESNsyQMwbDuqLJroeGnoZshiYBVjjkxVfNWn/Ib6Sg/XyL8g==",
   "success": true,
-  "projectFilePath": "C:\\Workspace Code Academy\\CourseApp\\Service\\Service.csproj",
+  "projectFilePath": "C:\\Users\\Hacixanov\\Desktop\\New folder (3)\\CourseApp\\Service\\Service.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\Legion\\.nuget\\packages\\consoletables\\2.6.1\\consoletables.2.6.1.nupkg.sha512",
-    "C:\\Users\\Legion\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.28\\microsoft.windowsdesktop.app.ref.6.0.28.nupkg.sha512",
-    "C:\\Users\\Legion\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.28\\microsoft.netcore.app.ref.6.0.28.nupkg.sha512",
-    "C:\\Users\\Legion\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.28\\microsoft.aspnetcore.app.ref.6.0.28.nupkg.sha512"
+    "C:\\Users\\Hacixanov\\.nuget\\packages\\consoletables\\2.6.1\\consoletables.2.6.1.nupkg.sha512"
   ],
   "logs": []
 }

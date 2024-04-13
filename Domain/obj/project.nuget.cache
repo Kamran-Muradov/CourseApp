@@ -1,12 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "v1sgaFx0rz/XqNI7u29av1CMlcJVBMhNh/sHxaocNvXHNit1kZTn/spv9ZR0+r4agyfSR+B+G8IFS29PsPmxIQ==",
+  "dgSpecHash": "rjk4rZc4FSbfdx4ieqsnyfeYYAnptdqRz8kuhiEsBwP0rgVxlKTYiBqzd3oaViKrCelkw0ayUxZGOU5+WlYU3w==",
   "success": true,
-  "projectFilePath": "C:\\Workspace Code Academy\\CourseApp\\Domain\\Domain.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\Legion\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\6.0.28\\microsoft.windowsdesktop.app.ref.6.0.28.nupkg.sha512",
-    "C:\\Users\\Legion\\.nuget\\packages\\microsoft.netcore.app.ref\\6.0.28\\microsoft.netcore.app.ref.6.0.28.nupkg.sha512",
-    "C:\\Users\\Legion\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\6.0.28\\microsoft.aspnetcore.app.ref.6.0.28.nupkg.sha512"
-  ],
+  "projectFilePath": "C:\\Users\\Hacixanov\\Desktop\\New folder (3)\\CourseApp\\Domain\\Domain.csproj",
+  "expectedPackageFiles": [],
   "logs": []
 }

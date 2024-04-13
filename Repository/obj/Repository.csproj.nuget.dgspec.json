@@ -1,20 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Workspace Code Academy\\CourseApp\\Repository\\Repository.csproj": {}
+    "C:\\Users\\Hacixanov\\Desktop\\New folder (3)\\CourseApp\\Repository\\Repository.csproj": {}
   },
   "projects": {
-    "C:\\Workspace Code Academy\\CourseApp\\Domain\\Domain.csproj": {
+    "C:\\Users\\Hacixanov\\Desktop\\New folder (3)\\CourseApp\\Domain\\Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Workspace Code Academy\\CourseApp\\Domain\\Domain.csproj",
+        "projectUniqueName": "C:\\Users\\Hacixanov\\Desktop\\New folder (3)\\CourseApp\\Domain\\Domain.csproj",
         "projectName": "Domain",
-        "projectPath": "C:\\Workspace Code Academy\\CourseApp\\Domain\\Domain.csproj",
-        "packagesPath": "C:\\Users\\Legion\\.nuget\\packages\\",
-        "outputPath": "C:\\Workspace Code Academy\\CourseApp\\Domain\\obj\\",
+        "projectPath": "C:\\Users\\Hacixanov\\Desktop\\New folder (3)\\CourseApp\\Domain\\Domain.csproj",
+        "packagesPath": "C:\\Users\\Hacixanov\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Hacixanov\\Desktop\\New folder (3)\\CourseApp\\Domain\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Legion\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Hacixanov\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -34,11 +38,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -55,40 +54,30 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.28, 6.0.28]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.28, 6.0.28]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[6.0.28, 6.0.28]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Workspace Code Academy\\CourseApp\\Repository\\Repository.csproj": {
+    "C:\\Users\\Hacixanov\\Desktop\\New folder (3)\\CourseApp\\Repository\\Repository.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Workspace Code Academy\\CourseApp\\Repository\\Repository.csproj",
+        "projectUniqueName": "C:\\Users\\Hacixanov\\Desktop\\New folder (3)\\CourseApp\\Repository\\Repository.csproj",
         "projectName": "Repository",
-        "projectPath": "C:\\Workspace Code Academy\\CourseApp\\Repository\\Repository.csproj",
-        "packagesPath": "C:\\Users\\Legion\\.nuget\\packages\\",
-        "outputPath": "C:\\Workspace Code Academy\\CourseApp\\Repository\\obj\\",
+        "projectPath": "C:\\Users\\Hacixanov\\Desktop\\New folder (3)\\CourseApp\\Repository\\Repository.csproj",
+        "packagesPath": "C:\\Users\\Hacixanov\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Hacixanov\\Desktop\\New folder (3)\\CourseApp\\Repository\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Legion\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Hacixanov\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -102,8 +91,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Workspace Code Academy\\CourseApp\\Domain\\Domain.csproj": {
-                "projectPath": "C:\\Workspace Code Academy\\CourseApp\\Domain\\Domain.csproj"
+              "C:\\Users\\Hacixanov\\Desktop\\New folder (3)\\CourseApp\\Domain\\Domain.csproj": {
+                "projectPath": "C:\\Users\\Hacixanov\\Desktop\\New folder (3)\\CourseApp\\Domain\\Domain.csproj"
               }
             }
           }
@@ -112,11 +101,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -133,26 +117,12 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[6.0.28, 6.0.28]"
-            },
-            {
-              "name": "Microsoft.NETCore.App.Ref",
-              "version": "[6.0.28, 6.0.28]"
-            },
-            {
-              "name": "Microsoft.WindowsDesktop.App.Ref",
-              "version": "[6.0.28, 6.0.28]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
